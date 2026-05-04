@@ -1378,8 +1378,8 @@ function save() { localStorage.setItem('finpro_state', JSON.stringify(state)); }
 // ============================================================
 // HELPERS
 // ============================================================
-const fmt = v => 'R$ ' + Math.abs(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
-const fmtShort = v => 'R$ ' + Math.abs(v).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});
+const fmt = v => (v < 0 ? '-' : '') + 'R$ ' + Math.abs(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtShort = v => (v < 0 ? '-' : '') + 'R$ ' + Math.abs(v).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});
 const fmtDate = s => { if(!s) return ''; const [y,m,d]=s.split('-'); return `${d}/${m}/${y}`; };
 const today = () => new Date().toISOString().slice(0,10);
 const monthStr = (m,y) => new Date(y,m,1).toLocaleString('pt-BR',{month:'long',year:'numeric'});
@@ -1853,10 +1853,10 @@ function renderDashboard() {
 
   // Metrics
   document.getElementById('dash-metrics').innerHTML = `
-    <div class="metric-card metric-blue">
+    <div class="metric-card ${currentBal >= 0 ? 'metric-blue' : 'metric-red'}">
       <div class="metric-label">Saldo Atual</div>
       <div class="metric-value">${fmtShort(currentBal)}</div>
-      <div class="metric-sub">Total acumulado</div>
+      <div class="metric-sub">${currentBal >= 0 ? 'Total acumulado' : '⚠ Saldo negativo'}</div>
     </div>
     <div class="metric-card metric-green">
       <div class="metric-label">Receitas do Mês</div>
