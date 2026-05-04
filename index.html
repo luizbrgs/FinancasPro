@@ -1203,10 +1203,13 @@ async function sbGetUser(accessToken) {
 }
 
 async function sbFetch(table, method='GET', body=null, query='') {
-  const url = SB_URL + '/rest/v1/' + table + query;
-  // Filter by user_id automatically
-  const userFilter = currentUser ? (query ? '&user_id=eq.'+currentUser.id : '?user_id=eq.'+currentUser.id) : query;
-  const fullUrl = SB_URL + '/rest/v1/' + table + (method === 'GET' || method === 'DELETE' ? (query || '') + (currentUser ? (query ? '&user_id=eq.'+currentUser.id : '?user_id=eq.'+currentUser.id) : '') : query);
+  // For GET/DELETE: append user_id filter to query
+  let fullQuery = query || '';
+  if((method === 'GET' || method === 'DELETE') && currentUser) {
+    fullQuery += (fullQuery ? '&' : '?') + 'user_id=eq.' + currentUser.id;
+  }
+  const fullUrl = SB_URL + '/rest/v1/' + table + fullQuery;
+
   const opts = {
     method,
     headers: {
@@ -1215,7 +1218,7 @@ async function sbFetch(table, method='GET', body=null, query='') {
     }
   };
   if(body) {
-    // Inject user_id into every write
+    // Inject user_id into every write operation
     if(currentUser) body.user_id = currentUser.id;
     opts.body = JSON.stringify(body);
   }
@@ -1760,10 +1763,12 @@ function toggleBillPaid(id) {
 function toggleTransactionPaid(id) {
   const t = state.transactions.find(t=>t.id===id);
   if(!t) return;
-  t.paid = !t.paid;
+  // Force strict boolean toggle
+  t.paid = t.paid === true ? false : true;
   save(); renderCurrentPage(); updateBadges();
   setSyncing('syncing');
-  sbUpdateTransaction(t)
+  // Only send paid field to avoid overwriting other fields
+  sbFetch('transactions', 'PATCH', { paid: t.paid }, '?id=eq.' + t.id)
     .then(()=>{ setSyncing('ok'); showToast(t.paid ? '✓ Marcado como pago' : '↩ Reaberto', 'green'); })
     .catch(()=>{ setSyncing('error'); showToast('⚠ Erro ao atualizar', 'red'); });
 }
