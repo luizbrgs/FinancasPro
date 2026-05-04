@@ -1333,7 +1333,11 @@ async function loadFromSupabase() {
       sbFetch('budgets', 'GET', null, ''),
       sbFetch('goals', 'GET', null, ''),
     ]);
-    if(txRows !== null) state.transactions = (txRows||[]).map(rowToTx);
+    if(txRows !== null) {
+      state.transactions = (txRows||[]).map(rowToTx);
+      // Safety: ensure paid is always a strict boolean
+      state.transactions.forEach(t => { t.paid = t.paid === true; });
+    }
     if(cardRows !== null) state.cards = (cardRows||[]).map(rowToCard);
     if(budgetRows !== null) {
       state.budgets = {};
@@ -1364,52 +1368,9 @@ let state = JSON.parse(localStorage.getItem('finpro_state') || 'null') || {
 // Always open on the current month, regardless of what was saved
 state.currentMonth = new Date().getMonth();
 state.currentYear  = new Date().getFullYear();
-state.transactions.forEach(t=>{ if(t.paid===undefined || t.paid===null) t.paid=true; });
+// paid is always set explicitly — no migration needed
 
 function save() { localStorage.setItem('finpro_state', JSON.stringify(state)); }
-
-// ============================================================
-// SEED DATA (first run)
-// ============================================================
-if (state.transactions.length === 0 && state.bills.length === 0) {
-  const today = new Date();
-  const y = today.getFullYear(), m = today.getMonth();
-  const d = (dy,mo=m,yr=y) => `${yr}-${String(mo+1).padStart(2,'0')}-${String(dy).padStart(2,'0')}`;
-
-  state.transactions = [
-    {id:1,type:'receita',date:d(5),desc:'Salário',value:5500,cat:'salario',recurrence:'mensal',obs:'',paid:true},
-    {id:2,type:'despesa',date:d(6),desc:'Aluguel',value:1800,cat:'moradia',recurrence:'mensal',obs:'',paid:true},
-    {id:3,type:'despesa',date:d(8),desc:'Supermercado',value:420,cat:'supermercado',recurrence:'unico',obs:'',paid:true},
-    {id:4,type:'despesa',date:d(10),desc:'Netflix',value:55.9,cat:'assinaturas',recurrence:'mensal',obs:'',paid:true},
-    {id:5,type:'despesa',date:d(12),desc:'Uber',value:87,cat:'transporte',recurrence:'unico',obs:'',paid:true},
-    {id:6,type:'despesa',date:d(14),desc:'iPhone 14 Pro (6/12)',value:599.9,cat:'roupas',recurrence:'parcelado',parcelas:12,parcelaAtual:6,parcelaDesc:'6/12',obs:'',paid:true},
-    {id:7,type:'receita',date:d(15),desc:'Freelance design',value:1200,cat:'freelance',recurrence:'unico',obs:'',paid:true},
-    {id:8,type:'despesa',date:d(17),desc:'Farmácia',value:95,cat:'saude',recurrence:'unico',obs:'',paid:true},
-    {id:9,type:'despesa',date:d(20),desc:'Academia',value:120,cat:'saude',recurrence:'mensal',obs:'',paid:true},
-    {id:10,type:'despesa',date:d(22),desc:'Restaurante',value:145,cat:'alimentacao',recurrence:'unico',obs:'',paid:true},
-  ];
-  state.bills = [
-    {id:101,desc:'Aluguel',value:1800,due:d(5,m+1>11?0:m+1,m+1>11?y+1:y),cat:'moradia',recurrence:'mensal',paid:false},
-    {id:102,desc:'Conta de Luz',value:180,due:d(10,m+1>11?0:m+1,m+1>11?y+1:y),cat:'moradia',recurrence:'mensal',paid:false},
-    {id:103,desc:'Internet',value:120,due:d(15,m+1>11?0:m+1,m+1>11?y+1:y),cat:'assinaturas',recurrence:'mensal',paid:false},
-    {id:104,desc:'Cartão Nubank',value:850,due:d(18,m+1>11?0:m+1,m+1>11?y+1:y),cat:'outros_d',recurrence:'mensal',paid:false},
-    {id:105,desc:'IPVA',value:2400,due:d(3),cat:'transporte',recurrence:'anual',paid:false},
-    {id:106,desc:'Condomínio',value:450,due:d(1),cat:'moradia',recurrence:'mensal',paid:true},
-  ];
-  state.cards = [
-    {id:201,name:'Nubank Roxo',brand:'Mastercard',digits:'4521',limit:6000,close:5,dueDay:12,color:'#7c3aed'},
-    {id:202,name:'Inter Gold',brand:'Mastercard',digits:'8834',limit:4000,close:10,dueDay:18,color:'#ea580c'},
-  ];
-  state.budgets = {
-    alimentacao:600, moradia:2500, transporte:400, saude:300, lazer:400, assinaturas:200, supermercado:600
-  };
-  state.goals = [
-    {id:301,name:'Fundo de emergência',icon:'🛡️',target:20000,saved:8500,date:'2025-12-31'},
-    {id:302,name:'Viagem Europa',icon:'✈️',target:15000,saved:3200,date:'2026-06-30'},
-    {id:303,name:'Notebook novo',icon:'💻',target:8000,saved:5600,date:'2025-08-01'},
-  ];
-  save();
-}
 
 // ============================================================
 // HELPERS
@@ -2679,8 +2640,13 @@ async function handleSession(data) {
   updateUserUI(data.user);
   // Hide auth screen, show app
   document.getElementById('auth-screen').classList.add('hidden');
-  // Reset state and load from Supabase
-  state.transactions = []; state.cards = []; state.budgets = {}; state.goals = [];
+  // Clear ALL local state before loading fresh from Supabase
+  state.transactions = [];
+  state.bills = [];
+  state.cards = [];
+  state.budgets = {};
+  state.goals = [];
+  localStorage.removeItem('finpro_state');
   init();
   await loadFromSupabase();
   showToast('✓ Bem-vindo!', 'green');
@@ -2753,6 +2719,12 @@ async function startApp() {
         currentSession = sess;
         currentUser = user;
         updateUserUI(user);
+        // Clear any cached local data — always load fresh from Supabase
+        state.transactions = [];
+        state.bills = [];
+        state.cards = [];
+        state.budgets = {};
+        state.goals = [];
         document.getElementById('auth-screen').classList.add('hidden');
         init();
         await loadFromSupabase();
