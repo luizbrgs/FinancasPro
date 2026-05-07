@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+><!DOCTYPE html>
 
 <html lang="pt-BR">
 <head>
@@ -33,49 +33,59 @@
     --shadow: 0 4px 24px rgba(0,0,0,0.4);
   }
 
-/* ── LIGHT THEME ── */
+/* ── LIGHT THEME — warm slate ── */
 body.light {
-–bg: #f4f5f7;
-–bg2: #ffffff;
-–bg3: #f0f1f3;
-–bg4: #e4e5e8;
-–border: #e0e1e5;
-–border2: #d0d1d6;
-–text: #1a1a2e;
-–text2: #5a5a72;
-–text3: #9090a8;
-–green: #00b87a;
-–green-dim: rgba(0,184,122,0.10);
-–red: #e53e5e;
-–red-dim: rgba(229,62,94,0.10);
-–blue: #2d7dd2;
-–blue-dim: rgba(45,125,210,0.10);
-–amber: #d97706;
-–amber-dim: rgba(217,119,6,0.10);
-–purple: #7c3aed;
-–purple-dim: rgba(124,58,237,0.10);
-–shadow: 0 4px 24px rgba(0,0,0,0.08);
+–bg:     #eef0f4;
+–bg2:    #f7f8fa;
+–bg3:    #eaecf0;
+–bg4:    #dde0e6;
+–border: #d4d7de;
+–border2:#c8cbd4;
+–text:   #1c1e2a;
+–text2:  #52566a;
+–text3:  #8c90a4;
+–green:  #0a9e6e;
+–green-dim: rgba(10,158,110,0.12);
+–red:    #d63651;
+–red-dim: rgba(214,54,81,0.12);
+–blue:   #2563eb;
+–blue-dim: rgba(37,99,235,0.12);
+–amber:  #c2710c;
+–amber-dim: rgba(194,113,12,0.12);
+–purple: #6d28d9;
+–purple-dim: rgba(109,40,217,0.12);
+–shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
-body.light .sidebar { box-shadow: 2px 0 12px rgba(0,0,0,0.06); background: #ffffff; }
-body.light .credit-card-visual { background: linear-gradient(135deg,#2d3a5a 0%,#1a2a4a 100%) !important; }
-body.light .card { background: #ffffff; border-color: #e0e1e5; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-body.light .metric-card { background: #ffffff; border-color: #e0e1e5; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-body.light .modal { background: #ffffff; }
-body.light .modal-overlay { background: rgba(0,0,0,0.4); }
-body.light .auth-box { background: #ffffff; box-shadow: 0 8px 40px rgba(0,0,0,0.12); }
-body.light .auth-screen { background: #f0f1f3; }
-body.light .bottom-nav { background: #ffffff; border-color: #e0e1e5; box-shadow: 0 -2px 12px rgba(0,0,0,0.06); }
-body.light .form-input, body.light .form-select { background: #f4f5f7; border-color: #d0d1d6; color: #1a1a2e; }
-body.light .recurrence-fields { background: #f4f5f7; }
-body.light table tr:hover td { background: #f4f5f7; }
-body.light .badge-gray { background: rgba(0,0,0,0.06); }
-body.light .tabs { background: #f0f1f3; }
-body.light .tab.active { background: #ffffff; }
-body.light .radio-option { background: #f4f5f7; border-color: #d0d1d6; }
-body.light #more-menu { background: #ffffff; }
-body.light .user-dropdown { background: #ffffff; }
-body.light .pay-btn-pending { background: #f4f5f7; border-color: #d0d1d6; }
-body.light .btn-secondary { background: #f4f5f7; border-color: #d0d1d6; color: #1a1a2e; }
+/* Force all surfaces to use CSS vars — overrides any inline bg */
+body.light { background: var(–bg); color: var(–text); }
+body.light .sidebar { background: var(–bg2) !important; box-shadow: 2px 0 8px rgba(0,0,0,0.08); }
+body.light .main { background: var(–bg); }
+body.light .card { background: var(–bg2) !important; border-color: var(–border) !important; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+body.light .metric-card { background: var(–bg2) !important; border-color: var(–border) !important; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+body.light .modal { background: var(–bg2) !important; }
+body.light .modal-overlay { background: rgba(0,0,0,0.45); }
+body.light .auth-screen { background: var(–bg) !important; }
+body.light .auth-box { background: var(–bg2) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+body.light .bottom-nav { background: var(–bg2) !important; border-color: var(–border); box-shadow: 0 -2px 8px rgba(0,0,0,0.06); }
+body.light .bnav-item { color: var(–text3); }
+body.light .bnav-item.active { color: var(–green); }
+body.light .tabs { background: var(–bg3) !important; }
+body.light .tab { color: var(–text2); }
+body.light .tab.active { background: var(–bg2) !important; color: var(–text); }
+body.light .form-input, body.light .form-select, body.light .form-textarea { background: var(–bg3) !important; border-color: var(–border2) !important; color: var(–text); }
+body.light .radio-option { background: var(–bg3); border-color: var(–border2); color: var(–text2); }
+body.light .radio-option.selected { background: var(–green-dim); border-color: var(–green); color: var(–green); }
+body.light .btn-secondary { background: var(–bg3) !important; border-color: var(–border2) !important; color: var(–text); }
+body.light .recurrence-fields { background: var(–bg3) !important; border-color: var(–border); }
+body.light #more-menu { background: var(–bg2) !important; border-color: var(–border2) !important; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+body.light .user-dropdown { background: var(–bg2) !important; border-color: var(–border2) !important; }
+body.light .nav-item:hover { background: var(–bg3) !important; }
+body.light .nav-item.active { background: var(–green-dim) !important; }
+body.light table tr:hover td { background: var(–bg3) !important; }
+body.light .pay-btn-pending { background: var(–bg3); border-color: var(–border2); color: var(–text2); }
+body.light .loading-overlay { background: rgba(238,240,244,0.9); }
+body.light .credit-card-visual { background: linear-gradient(135deg,#1e3a5f 0%,#2d4a7a 100%) !important; }
+body.light .theme-btn { background: var(–bg3); }
 
 /* Theme toggle button */
 .theme-btn {
@@ -2818,17 +2828,26 @@ function toggleTheme() {
   const isLight = document.body.classList.toggle('light');
   localStorage.setItem('finpro_theme', isLight ? 'light' : 'dark');
   updateThemeBtn(isLight);
+  // Re-render to force any Chart.js color updates
+  if(typeof renderCurrentPage === 'function') renderCurrentPage();
 }
 function updateThemeBtn(isLight) {
   const btn = document.getElementById('theme-btn');
   const moreBtn = document.getElementById('more-theme-btn');
+  // When in light mode: show "🌙 Modo Escuro" (to switch back)
+  // When in dark mode:  show "☀️ Modo Claro"  (to switch to light)
   if(btn) btn.innerHTML = isLight ? '🌙 Modo Escuro' : '☀️ Modo Claro';
-  if(moreBtn) moreBtn.innerHTML = '<span class="nav-icon">'+(isLight?'🌙':'☀️')+'</span><span>'+(isLight?'Modo Escuro':'Modo Claro')+'</span>';
+  if(moreBtn) {
+    const icon = isLight ? '🌙' : '☀️';
+    const label = isLight ? 'Modo Escuro' : 'Modo Claro';
+    moreBtn.innerHTML = '<span class="nav-icon">'+icon+'</span><span>'+label+'</span>';
+  }
 }
 function applyTheme() {
   const saved = localStorage.getItem('finpro_theme');
+  // Default is dark — only add 'light' if explicitly saved as light
   const isLight = saved === 'light';
-  if(isLight) document.body.classList.add('light');
+  document.body.classList.toggle('light', isLight);
   updateThemeBtn(isLight);
 }
 
