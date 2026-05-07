@@ -56,8 +56,26 @@ body.light {
 –purple-dim: rgba(124,58,237,0.10);
 –shadow: 0 4px 24px rgba(0,0,0,0.08);
 }
-body.light .sidebar { box-shadow: 2px 0 12px rgba(0,0,0,0.06); }
+body.light .sidebar { box-shadow: 2px 0 12px rgba(0,0,0,0.06); background: #ffffff; }
 body.light .credit-card-visual { background: linear-gradient(135deg,#2d3a5a 0%,#1a2a4a 100%) !important; }
+body.light .card { background: #ffffff; border-color: #e0e1e5; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+body.light .metric-card { background: #ffffff; border-color: #e0e1e5; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+body.light .modal { background: #ffffff; }
+body.light .modal-overlay { background: rgba(0,0,0,0.4); }
+body.light .auth-box { background: #ffffff; box-shadow: 0 8px 40px rgba(0,0,0,0.12); }
+body.light .auth-screen { background: #f0f1f3; }
+body.light .bottom-nav { background: #ffffff; border-color: #e0e1e5; box-shadow: 0 -2px 12px rgba(0,0,0,0.06); }
+body.light .form-input, body.light .form-select { background: #f4f5f7; border-color: #d0d1d6; color: #1a1a2e; }
+body.light .recurrence-fields { background: #f4f5f7; }
+body.light table tr:hover td { background: #f4f5f7; }
+body.light .badge-gray { background: rgba(0,0,0,0.06); }
+body.light .tabs { background: #f0f1f3; }
+body.light .tab.active { background: #ffffff; }
+body.light .radio-option { background: #f4f5f7; border-color: #d0d1d6; }
+body.light #more-menu { background: #ffffff; }
+body.light .user-dropdown { background: #ffffff; }
+body.light .pay-btn-pending { background: #f4f5f7; border-color: #d0d1d6; }
+body.light .btn-secondary { background: #f4f5f7; border-color: #d0d1d6; color: #1a1a2e; }
 
 /* Theme toggle button */
 .theme-btn {
@@ -801,7 +819,13 @@ margin-left: 6px; flex-shrink: 0;
       </select>
       <select class="form-select" id="filter-month" onchange="renderTransactions()">
       </select>
-      <select class="form-select" style="grid-column:1/-1" id="filter-cat" onchange="renderTransactions()">
+      <select class="form-select" id="filter-sort" onchange="renderTransactions()">
+        <option value="vencimento">📅 A vencer primeiro</option>
+        <option value="recentes">🕐 Mais recentes</option>
+        <option value="valor_maior">💰 Maior valor</option>
+        <option value="valor_menor">💰 Menor valor</option>
+      </select>
+      <select class="form-select" id="filter-cat" onchange="renderTransactions()">
         <option value="">Todas categorias</option>
       </select>
     </div>
@@ -2282,8 +2306,21 @@ function renderTransactions() {
     monthSel.value = prev || cur;
   }
 
-  // ── Base list: newest first ──
-  let txs = [...state.transactions].sort((a,b)=>b.date.localeCompare(a.date));
+  // ── Sort ──
+  const sortF = document.getElementById('filter-sort')?.value || 'vencimento';
+  let txs = [...state.transactions];
+  if(sortF === 'vencimento') {
+    // Unpaid first (sorted by date asc = earliest due first), then paid (newest first)
+    const unpaid = txs.filter(t=>t.paid!==true).sort((a,b)=>a.date.localeCompare(b.date));
+    const paid   = txs.filter(t=>t.paid===true).sort((a,b)=>b.date.localeCompare(a.date));
+    txs = [...unpaid, ...paid];
+  } else if(sortF === 'recentes') {
+    txs.sort((a,b)=>b.date.localeCompare(a.date));
+  } else if(sortF === 'valor_maior') {
+    txs.sort((a,b)=>b.value-a.value);
+  } else if(sortF === 'valor_menor') {
+    txs.sort((a,b)=>a.value-b.value);
+  }
 
   // ── Get active month filter ──
   const activeMonth = monthSel ? monthSel.value : currentMonthFilter;
