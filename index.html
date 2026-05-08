@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -79,481 +80,486 @@
   body.dark .nav-item.active { background: rgba(0,230,153,0.12) !important; }
   body.dark .credit-card-visual { background: linear-gradient(135deg,#1e1e40 0%,#2a1a4a 50%,#1a2a40 100%) !important; }
 
-  /* Light is default — no body.light overrides needed */
-  .credit-card-visual { background: linear-gradient(135deg,#1e3a5f 0%,#2d4a7a 100%); }
+/* Light is default — no body.light overrides needed */
+.credit-card-visual { background: linear-gradient(135deg,#1e3a5f 0%,#2d4a7a 100%); }
 
-  /* Theme toggle button */
-  .theme-btn {
-    background: none; border: 1px solid var(--border2);
-    border-radius: 20px; padding: 5px 11px;
-    color: var(--text2); cursor: pointer; font-size: 13px;
-    transition: all 0.15s; display: flex; align-items: center; gap: 5px;
-    font-family: inherit;
-  }
-  .theme-btn:hover { background: var(--bg3); color: var(--text); }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.5; min-height: 100vh; }
-  
-  /* Layout */
-  .app { display: flex; min-height: 100vh; }
-  .sidebar { width: 220px; background: var(--bg2); border-right: 1px solid var(--border); padding: 0; display: flex; flex-direction: column; flex-shrink: 0; position: fixed; height: 100vh; overflow-y: auto; z-index: 100; }
-  .main { flex: 1; margin-left: 220px; padding: 28px 32px; min-height: 100vh; }
-  
-  /* Sidebar */
-  .logo { padding: 24px 20px; border-bottom: 1px solid var(--border); }
-  .logo-text { font-size: 17px; font-weight: 600; letter-spacing: -0.3px; }
-  .logo-text span { color: var(--green); }
-  .nav { padding: 12px 0; flex: 1; }
-  .nav-section { padding: 8px 16px 4px; font-size: 11px; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; }
-  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; cursor: pointer; color: var(--text2); font-size: 13.5px; font-weight: 400; transition: all 0.15s; position: relative; }
-  .nav-item:hover { background: var(--bg3); color: var(--text); }
-  .nav-item.active { background: var(--green-dim); color: var(--green); font-weight: 500; }
-  .nav-item.active::before { content: ''; position: absolute; left: 0; top: 6px; bottom: 6px; width: 3px; background: var(--green); border-radius: 0 2px 2px 0; }
-  .nav-icon { font-size: 16px; width: 20px; text-align: center; }
-  .nav-badge { margin-left: auto; background: var(--red); color: white; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 10px; }
-  
-  /* Header */
-  .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
-  .page-title { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; }
-  .page-subtitle { font-size: 13px; color: var(--text2); margin-top: 2px; }
-  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: all 0.15s; font-family: inherit; }
-  .btn-primary { background: var(--green); color: #0a1a12; }
-  .btn-primary:hover { background: #00cc88; transform: translateY(-1px); }
-  .btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid var(--border2); }
-  .btn-secondary:hover { background: var(--bg4); }
-  .btn-danger { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,77,109,0.3); }
-  .btn-sm { padding: 6px 12px; font-size: 12px; }
-  
-  /* Cards */
-  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
-  .card-title { font-size: 12px; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
-  
-  /* Grid */
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-  
-  /* Metric Cards */
-  .metric-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
-  .metric-label { font-size: 11.5px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-  .metric-value { font-size: 26px; font-weight: 600; letter-spacing: -0.5px; font-family: 'DM Mono', monospace; }
-  .metric-sub { font-size: 12px; color: var(--text2); margin-top: 4px; }
-  .metric-green .metric-value { color: var(--green); }
-  .metric-red .metric-value { color: var(--red); }
-  .metric-blue .metric-value { color: var(--blue); }
-  .metric-amber .metric-value { color: var(--amber); }
-  .metric-card .metric-trend { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; padding: 2px 7px; border-radius: 20px; margin-top: 6px; font-weight: 500; }
-  .trend-up { background: var(--green-dim); color: var(--green); }
-  .trend-down { background: var(--red-dim); color: var(--red); }
-  
-  /* Tabs */
-  .tabs { display: flex; gap: 4px; background: var(--bg3); padding: 4px; border-radius: var(--radius-sm); margin-bottom: 24px; width: fit-content; }
-  .tab { padding: 7px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 400; color: var(--text2); transition: all 0.15s; }
-  .tab.active { background: var(--bg2); color: var(--text); font-weight: 500; box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
-  
-  /* Table */
-  .table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; }
-  th { text-align: left; padding: 10px 14px; font-size: 11.5px; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); white-space: nowrap; }
-  td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 13.5px; color: var(--text); vertical-align: middle; }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: var(--bg3); }
-  
-  /* Badge */
-  .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 500; white-space: nowrap; }
-  .badge-green { background: var(--green-dim); color: var(--green); }
-  .badge-red { background: var(--red-dim); color: var(--red); }
-  .badge-blue { background: var(--blue-dim); color: var(--blue); }
-  .badge-amber { background: var(--amber-dim); color: var(--amber); }
-  .badge-purple { background: var(--purple-dim); color: var(--purple); }
-  .badge-gray { background: rgba(255,255,255,0.07); color: var(--text2); }
-  
-  /* Category icon */
-  .cat-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-  
-  /* Progress bar */
-  .progress-wrap { background: var(--bg3); border-radius: 4px; height: 6px; overflow: hidden; margin-top: 6px; }
-  .progress-bar { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
-  
-  /* Modal */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity 0.2s; }
-  .modal-overlay.open { opacity: 1; pointer-events: all; }
-  .modal { background: var(--bg2); border: 1px solid var(--border2); border-radius: 16px; padding: 28px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; transform: translateY(20px); transition: transform 0.2s; }
-  .modal-overlay.open .modal { transform: translateY(0); }
-  .modal-title { font-size: 18px; font-weight: 600; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; }
-  .modal-close { background: none; border: none; color: var(--text2); cursor: pointer; font-size: 20px; padding: 4px; transition: color 0.15s; }
-  .modal-close:hover { color: var(--text); }
-  
-  /* Form */
-  .form-group { margin-bottom: 16px; }
-  .form-label { display: block; font-size: 12.5px; font-weight: 500; color: var(--text2); margin-bottom: 6px; }
-  .form-input, .form-select, .form-textarea { width: 100%; background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 10px 12px; color: var(--text); font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.15s; }
-  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--green); }
-  .form-select option { background: var(--bg3); }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-  .form-check { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-  .form-check input { accent-color: var(--green); width: 15px; height: 15px; cursor: pointer; }
-  
-  /* Radio group */
-  .radio-group { display: flex; gap: 8px; flex-wrap: wrap; }
-  .radio-option { display: flex; align-items: center; gap: 6px; padding: 8px 14px; background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; transition: all 0.15s; }
-  .radio-option:hover { border-color: var(--border); }
-  .radio-option.selected { background: var(--green-dim); border-color: var(--green); color: var(--green); font-weight: 500; }
-  .radio-option input { display: none; }
-  
-  /* Recurrence fields */
-  .recurrence-fields { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; margin-top: 8px; }
-  
-  /* Chart container */
-  .chart-container { position: relative; }
-  
-  /* Section divider */
-  .section-gap { margin-bottom: 24px; }
-  
-  /* Alert */
-  .alert { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: 12px; }
-  .alert-red { background: var(--red-dim); border: 1px solid rgba(255,77,109,0.25); color: var(--text); }
-  .alert-amber { background: var(--amber-dim); border: 1px solid rgba(255,179,71,0.25); color: var(--text); }
-  .alert-green { background: var(--green-dim); border: 1px solid rgba(0,230,153,0.25); color: var(--text); }
-  
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
-  
-  /* Pages */
-  .page { display: none; }
-  .page.active { display: block; }
+/* Theme toggle button */
+.theme-btn {
+background: none; border: 1px solid var(–border2);
+border-radius: 20px; padding: 5px 11px;
+color: var(–text2); cursor: pointer; font-size: 13px;
+transition: all 0.15s; display: flex; align-items: center; gap: 5px;
+font-family: inherit;
+}
+.theme-btn:hover { background: var(–bg3); color: var(–text); }
 
-  /* Credit card visual */
-  .credit-card-visual { background: linear-gradient(135deg, #1e1e40 0%, #2a1a4a 50%, #1a2a40 100%); border-radius: 16px; padding: 22px 24px; min-height: 160px; position: relative; overflow: hidden; color: white; border: 1px solid rgba(255,255,255,0.1); }
-  .credit-card-visual::before { content: ''; position: absolute; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.03); top: -60px; right: -60px; }
-  .credit-card-visual::after { content: ''; position: absolute; width: 150px; height: 150px; border-radius: 50%; background: rgba(255,255,255,0.03); bottom: -50px; left: 30px; }
-  .card-chip { width: 36px; height: 28px; background: rgba(255,200,50,0.7); border-radius: 4px; margin-bottom: 16px; }
-  .card-number { font-family: 'DM Mono', monospace; font-size: 15px; letter-spacing: 2px; margin-bottom: 14px; opacity: 0.9; }
-  .card-info { display: flex; justify-content: space-between; align-items: flex-end; }
-  .card-holder { font-size: 12px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
-  .card-brand { font-size: 20px; font-weight: 700; opacity: 0.9; }
-  .card-limit-info { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-size: 13px; }
-  
-  /* Color dot */
-  .color-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-  
-  /* Category list */
-  .cat-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
-  .cat-row:last-child { border-bottom: none; }
-  .cat-row-info { flex: 1; }
-  .cat-row-name { font-size: 13.5px; font-weight: 500; }
-  .cat-row-count { font-size: 12px; color: var(--text2); }
-  .cat-row-amount { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; color: var(--text); }
-  
-  /* Empty state */
-  .empty { text-align: center; padding: 48px 20px; color: var(--text2); }
-  .empty-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
-  .empty-text { font-size: 15px; font-weight: 500; color: var(--text2); }
-  .empty-sub { font-size: 13px; color: var(--text3); margin-top: 4px; }
+- { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(–bg); color: var(–text); font-family: ‘DM Sans’, sans-serif; font-size: 14px; line-height: 1.5; min-height: 100vh; }
 
-  /* Bill status */
-  .bill-overdue { border-left: 3px solid var(--red) !important; }
-  .bill-due-soon { border-left: 3px solid var(--amber) !important; }
-  .bill-paid { border-left: 3px solid var(--green) !important; }
+/* Layout */
+.app { display: flex; min-height: 100vh; }
+.sidebar { width: 220px; background: var(–bg2); border-right: 1px solid var(–border); padding: 0; display: flex; flex-direction: column; flex-shrink: 0; position: fixed; height: 100vh; overflow-y: auto; z-index: 100; }
+.main { flex: 1; margin-left: 220px; padding: 28px 32px; min-height: 100vh; }
 
-  /* Forecast bar */
-  .forecast-month { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
-  .forecast-month:last-child { border-bottom: none; }
-  .forecast-month-name { width: 80px; font-size: 13px; color: var(--text2); font-weight: 500; }
-  .forecast-bars { flex: 1; }
-  .forecast-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-  .forecast-bar-row:last-child { margin-bottom: 0; }
-  .forecast-bar-label { width: 50px; font-size: 11.5px; color: var(--text3); }
-  .forecast-bar-track { flex: 1; background: var(--bg3); border-radius: 3px; height: 6px; }
-  .forecast-bar-fill { height: 100%; border-radius: 3px; }
-  .forecast-bar-val { width: 80px; font-size: 12px; font-family: 'DM Mono', monospace; color: var(--text2); text-align: right; }
-  .forecast-balance { width: 90px; text-align: right; font-size: 13px; font-family: 'DM Mono', monospace; font-weight: 500; }
+/* Sidebar */
+.logo { padding: 24px 20px; border-bottom: 1px solid var(–border); }
+.logo-text { font-size: 17px; font-weight: 600; letter-spacing: -0.3px; }
+.logo-text span { color: var(–green); }
+.nav { padding: 12px 0; flex: 1; }
+.nav-section { padding: 8px 16px 4px; font-size: 11px; font-weight: 500; color: var(–text3); text-transform: uppercase; letter-spacing: 0.8px; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; cursor: pointer; color: var(–text2); font-size: 13.5px; font-weight: 400; transition: all 0.15s; position: relative; }
+.nav-item:hover { background: var(–bg3); color: var(–text); }
+.nav-item.active { background: var(–green-dim); color: var(–green); font-weight: 500; }
+.nav-item.active::before { content: ‘’; position: absolute; left: 0; top: 6px; bottom: 6px; width: 3px; background: var(–green); border-radius: 0 2px 2px 0; }
+.nav-icon { font-size: 16px; width: 20px; text-align: center; }
+.nav-badge { margin-left: auto; background: var(–red); color: white; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 10px; }
 
-  /* Installment badge */
-  .inst-badge { font-size: 10.5px; padding: 2px 7px; border-radius: 10px; background: var(--purple-dim); color: var(--purple); font-weight: 500; white-space: nowrap; }
-  .rec-badge { font-size: 10.5px; padding: 2px 7px; border-radius: 10px; background: var(--blue-dim); color: var(--blue); font-weight: 500; white-space: nowrap; }
+/* Header */
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+.page-title { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; }
+.page-subtitle { font-size: 13px; color: var(–text2); margin-top: 2px; }
+.btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: var(–radius-sm); font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: all 0.15s; font-family: inherit; }
+.btn-primary { background: var(–green); color: #0a1a12; }
+.btn-primary:hover { background: #00cc88; transform: translateY(-1px); }
+.btn-secondary { background: var(–bg3); color: var(–text); border: 1px solid var(–border2); }
+.btn-secondary:hover { background: var(–bg4); }
+.btn-danger { background: var(–red-dim); color: var(–red); border: 1px solid rgba(255,77,109,0.3); }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
 
-  /* Tooltip */
-  [title] { cursor: help; }
+/* Cards */
+.card { background: var(–bg2); border: 1px solid var(–border); border-radius: var(–radius); padding: 20px; }
+.card-title { font-size: 12px; font-weight: 500; color: var(–text3); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
 
-  /* Delete btn */
-  .del-btn { background: none; border: none; color: var(--text3); cursor: pointer; padding: 4px 8px; border-radius: 6px; font-size: 15px; transition: all 0.15s; }
-  .del-btn:hover { background: var(--red-dim); color: var(--red); }
-  .edit-btn { background: none; border: none; color: var(--text3); cursor: pointer; padding: 4px 8px; border-radius: 6px; font-size: 15px; transition: all 0.15s; }
-  .edit-btn:hover { background: var(--blue-dim); color: var(--blue); }
+/* Grid */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 
-  /* Paid toggle button for transactions */
-  .pay-btn { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 500; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; white-space: nowrap; }
-  .pay-btn-pending { background: var(--bg4); color: var(--text2); border: 1px solid var(--border2); }
-  .pay-btn-pending:hover { background: var(--green-dim); color: var(--green); border-color: rgba(0,230,153,0.4); }
-  .pay-btn-done { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0,230,153,0.3); }
-  .pay-btn-done:hover { background: var(--bg4); color: var(--text2); border-color: var(--border2); }
-  /* Dim unpaid rows slightly */
-  tr.row-unpaid td { opacity: 0.65; }
+/* Metric Cards */
+.metric-card { background: var(–bg2); border: 1px solid var(–border); border-radius: var(–radius); padding: 18px 20px; }
+.metric-label { font-size: 11.5px; color: var(–text3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.metric-value { font-size: 26px; font-weight: 600; letter-spacing: -0.5px; font-family: ‘DM Mono’, monospace; }
+.metric-sub { font-size: 12px; color: var(–text2); margin-top: 4px; }
+.metric-green .metric-value { color: var(–green); }
+.metric-red .metric-value { color: var(–red); }
+.metric-blue .metric-value { color: var(–blue); }
+.metric-amber .metric-value { color: var(–amber); }
+.metric-card .metric-trend { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; padding: 2px 7px; border-radius: 20px; margin-top: 6px; font-weight: 500; }
+.trend-up { background: var(–green-dim); color: var(–green); }
+.trend-down { background: var(–red-dim); color: var(–red); }
 
-  /* Toggle */
-  .toggle { position: relative; display: inline-block; width: 40px; height: 22px; flex-shrink: 0; }
-  .toggle input { opacity: 0; width: 0; height: 0; }
-  .toggle-slider { position: absolute; inset: 0; background: var(--bg4); border-radius: 22px; cursor: pointer; transition: 0.2s; }
-  .toggle-slider:before { content: ''; position: absolute; width: 16px; height: 16px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.2s; }
-  .toggle input:checked + .toggle-slider { background: var(--green); }
-  .toggle input:checked + .toggle-slider:before { transform: translateX(18px); }
+/* Tabs */
+.tabs { display: flex; gap: 4px; background: var(–bg3); padding: 4px; border-radius: var(–radius-sm); margin-bottom: 24px; width: fit-content; }
+.tab { padding: 7px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 400; color: var(–text2); transition: all 0.15s; }
+.tab.active { background: var(–bg2); color: var(–text); font-weight: 500; box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
 
-  /* Month selector */
-  .month-selector { display: flex; align-items: center; gap: 8px; }
-  .month-btn { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px 10px; cursor: pointer; color: var(--text); font-size: 13px; transition: all 0.15s; }
-  .month-btn:hover { background: var(--bg4); }
-  .month-display { font-size: 14px; font-weight: 500; min-width: 120px; text-align: center; }
+/* Table */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 10px 14px; font-size: 11.5px; font-weight: 500; color: var(–text3); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(–border); white-space: nowrap; }
+td { padding: 12px 14px; border-bottom: 1px solid var(–border); font-size: 13.5px; color: var(–text); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(–bg3); }
 
-  /* Spending wheel placeholder */
-  .donut-wrap { display: flex; gap: 24px; align-items: center; }
-  .donut-legend { flex: 1; }
-  .donut-legend-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 13px; }
-  .donut-legend-pct { margin-left: auto; font-weight: 500; font-family: 'DM Mono', monospace; }
+/* Badge */
+.badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 500; white-space: nowrap; }
+.badge-green { background: var(–green-dim); color: var(–green); }
+.badge-red { background: var(–red-dim); color: var(–red); }
+.badge-blue { background: var(–blue-dim); color: var(–blue); }
+.badge-amber { background: var(–amber-dim); color: var(–amber); }
+.badge-purple { background: var(–purple-dim); color: var(–purple); }
+.badge-gray { background: rgba(255,255,255,0.07); color: var(–text2); }
 
-  /* Top bar */
-  .topbar { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-bottom: 28px; }
-  .topbar-balance { font-size: 13px; color: var(--text2); }
-  .topbar-balance strong { color: var(--green); font-family: 'DM Mono', monospace; font-weight: 500; }
+/* Category icon */
+.cat-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
 
-  /* ── BOTTOM NAV (mobile only) ── */
-  .bottom-nav {
-    display: none;
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    z-index: 200;
-    padding: 6px 0 max(6px, env(safe-area-inset-bottom));
-  }
-  .bottom-nav-inner {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-  .bnav-item {
-    display: flex; flex-direction: column; align-items: center;
-    gap: 3px; padding: 4px 8px; cursor: pointer;
-    color: var(--text3); font-size: 10px; font-weight: 500;
-    border-radius: 10px; transition: all 0.15s; min-width: 48px;
-    position: relative;
-  }
-  .bnav-item .bnav-icon { font-size: 20px; line-height: 1; }
-  .bnav-item.active { color: var(--green); }
-  .bnav-item .bnav-badge {
-    position: absolute; top: 2px; right: 6px;
-    background: var(--red); color: white;
-    font-size: 9px; font-weight: 700;
-    padding: 1px 4px; border-radius: 8px; min-width: 14px; text-align: center;
-  }
-  /* FAB button */
-  .fab {
-    position: fixed; bottom: calc(72px + max(6px, env(safe-area-inset-bottom)));
-    right: 18px; z-index: 201;
-    width: 52px; height: 52px; border-radius: 50%;
-    background: var(--green); color: #0a1a12;
-    border: none; font-size: 26px; font-weight: 300;
-    cursor: pointer; box-shadow: 0 4px 20px rgba(0,230,153,0.4);
-    display: none; align-items: center; justify-content: center;
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  .fab:active { transform: scale(0.93); box-shadow: 0 2px 10px rgba(0,230,153,0.3); }
+/* Progress bar */
+.progress-wrap { background: var(–bg3); border-radius: 4px; height: 6px; overflow: hidden; margin-top: 6px; }
+.progress-bar { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
 
-  @media (max-width: 768px) {
-    .sidebar { display: none !important; }
-    .main { margin-left: 0 !important; padding: 14px 12px 96px !important; }
-    .bottom-nav { display: block; }
-    .fab { display: flex; }
+/* Modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal { background: var(–bg2); border: 1px solid var(–border2); border-radius: 16px; padding: 28px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; transform: translateY(20px); transition: transform 0.2s; }
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-title { font-size: 18px; font-weight: 600; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; }
+.modal-close { background: none; border: none; color: var(–text2); cursor: pointer; font-size: 20px; padding: 4px; transition: color 0.15s; }
+.modal-close:hover { color: var(–text); }
 
-    /* Grids */
-    .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .grid-3 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .grid-2 { grid-template-columns: 1fr; gap: 10px; }
-    .form-row, .form-row-3 { grid-template-columns: 1fr; }
+/* Form */
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: 12.5px; font-weight: 500; color: var(–text2); margin-bottom: 6px; }
+.form-input, .form-select, .form-textarea { width: 100%; background: var(–bg3); border: 1px solid var(–border2); border-radius: var(–radius-sm); padding: 10px 12px; color: var(–text); font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.15s; }
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(–green); }
+.form-select option { background: var(–bg3); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.form-check { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.form-check input { accent-color: var(–green); width: 15px; height: 15px; cursor: pointer; }
 
-    /* Page header */
-    .page-header { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 14px; }
-    .page-header > div:last-child { width: 100%; }
-    .page-header .btn { display: none; }
-    #page-dashboard .page-header > div:last-child { display: flex; gap: 8px; align-items: center; }
-    #page-relatorios .page-header > div:last-child { display: flex; flex-direction: column; gap: 6px; }
-    #page-relatorios .page-header .btn { display: flex !important; }
+/* Radio group */
+.radio-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.radio-option { display: flex; align-items: center; gap: 6px; padding: 8px 14px; background: var(–bg3); border: 1px solid var(–border2); border-radius: var(–radius-sm); cursor: pointer; font-size: 13px; transition: all 0.15s; }
+.radio-option:hover { border-color: var(–border); }
+.radio-option.selected { background: var(–green-dim); border-color: var(–green); color: var(–green); font-weight: 500; }
+.radio-option input { display: none; }
 
-    /* Page titles smaller on mobile */
-    .page-title { font-size: 18px; }
-    .page-subtitle { font-size: 12px; }
+/* Recurrence fields */
+.recurrence-fields { background: var(–bg3); border: 1px solid var(–border); border-radius: var(–radius-sm); padding: 14px; margin-top: 8px; }
 
-    /* Month selector */
-    .month-selector { width: 100%; justify-content: space-between; }
-    .month-display { flex: 1; text-align: center; }
+/* Chart container */
+.chart-container { position: relative; }
 
-    /* Metric cards: compact */
-    .metric-card { padding: 12px 14px; }
-    .metric-value { font-size: 18px; letter-spacing: -0.5px; }
-    .metric-label { font-size: 10.5px; }
-    .metric-sub { font-size: 11px; }
+/* Section divider */
+.section-gap { margin-bottom: 24px; }
 
-    /* Cards */
-    .card { padding: 12px; }
-    .card-title { font-size: 11px; margin-bottom: 10px; }
+/* Alert */
+.alert { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: var(–radius-sm); font-size: 13px; margin-bottom: 12px; }
+.alert-red { background: var(–red-dim); border: 1px solid rgba(255,77,109,0.25); color: var(–text); }
+.alert-amber { background: var(–amber-dim); border: 1px solid rgba(255,179,71,0.25); color: var(–text); }
+.alert-green { background: var(–green-dim); border: 1px solid rgba(0,230,153,0.25); color: var(–text); }
 
-    /* Tables: horizontal scroll */
-    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    table { min-width: 420px; font-size: 12.5px; }
-    th, td { padding: 8px 10px; }
-    .hide-mobile { display: none !important; }
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(–border2); border-radius: 4px; }
 
-    /* Pay/status buttons */
-    .pay-btn { font-size: 10.5px; padding: 3px 7px; }
+/* Pages */
+.page { display: none; }
+.page.active { display: block; }
 
-    /* Tabs scrollable */
-    .tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; width: 100%; scrollbar-width: none; }
-    .tabs::-webkit-scrollbar { display: none; }
-    .tab { flex-shrink: 0; padding: 6px 12px; font-size: 12.5px; }
+/* Credit card visual */
+.credit-card-visual { background: linear-gradient(135deg, #1e1e40 0%, #2a1a4a 50%, #1a2a40 100%); border-radius: 16px; padding: 22px 24px; min-height: 160px; position: relative; overflow: hidden; color: white; border: 1px solid rgba(255,255,255,0.1); }
+.credit-card-visual::before { content: ‘’; position: absolute; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.03); top: -60px; right: -60px; }
+.credit-card-visual::after { content: ‘’; position: absolute; width: 150px; height: 150px; border-radius: 50%; background: rgba(255,255,255,0.03); bottom: -50px; left: 30px; }
+.card-chip { width: 36px; height: 28px; background: rgba(255,200,50,0.7); border-radius: 4px; margin-bottom: 16px; }
+.card-number { font-family: ‘DM Mono’, monospace; font-size: 15px; letter-spacing: 2px; margin-bottom: 14px; opacity: 0.9; }
+.card-info { display: flex; justify-content: space-between; align-items: flex-end; }
+.card-holder { font-size: 12px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
+.card-brand { font-size: 20px; font-weight: 700; opacity: 0.9; }
+.card-limit-info { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-size: 13px; }
 
-    /* Modal: bottom sheet */
-    .modal-overlay { align-items: flex-end; padding: 0; }
-    .modal { border-radius: 20px 20px 0 0; max-height: 90vh; max-width: 100%; border-bottom: none; padding: 22px 18px; }
-    .modal-title { font-size: 16px; margin-bottom: 16px; }
+/* Color dot */
+.color-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 
-    /* Donut */
-    .donut-wrap { flex-direction: column; align-items: center; height: auto !important; gap: 12px; }
-    .donut-wrap > div:first-child { width: 130px !important; height: 130px !important; }
+/* Category list */
+.cat-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(–border); }
+.cat-row:last-child { border-bottom: none; }
+.cat-row-info { flex: 1; }
+.cat-row-name { font-size: 13.5px; font-weight: 500; }
+.cat-row-count { font-size: 12px; color: var(–text2); }
+.cat-row-amount { font-family: ‘DM Mono’, monospace; font-size: 14px; font-weight: 500; color: var(–text); }
 
-    /* Charts */
-    .chart-container { height: 150px !important; }
+/* Empty state */
+.empty { text-align: center; padding: 48px 20px; color: var(–text2); }
+.empty-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
+.empty-text { font-size: 15px; font-weight: 500; color: var(–text2); }
+.empty-sub { font-size: 13px; color: var(–text3); margin-top: 4px; }
 
-    /* Section gaps */
-    .section-gap { margin-bottom: 12px; }
+/* Bill status */
+.bill-overdue { border-left: 3px solid var(–red) !important; }
+.bill-due-soon { border-left: 3px solid var(–amber) !important; }
+.bill-paid { border-left: 3px solid var(–green) !important; }
 
-    /* Forecast */
-    .forecast-month { flex-wrap: wrap; }
-    .forecast-month-name { width: 100%; margin-bottom: 4px; font-weight: 600; font-size: 12px; }
-    .forecast-bar-val { font-size: 11px; }
-    .forecast-balance { font-size: 12px; }
+/* Forecast bar */
+.forecast-month { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(–border); }
+.forecast-month:last-child { border-bottom: none; }
+.forecast-month-name { width: 80px; font-size: 13px; color: var(–text2); font-weight: 500; }
+.forecast-bars { flex: 1; }
+.forecast-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.forecast-bar-row:last-child { margin-bottom: 0; }
+.forecast-bar-label { width: 50px; font-size: 11.5px; color: var(–text3); }
+.forecast-bar-track { flex: 1; background: var(–bg3); border-radius: 3px; height: 6px; }
+.forecast-bar-fill { height: 100%; border-radius: 3px; }
+.forecast-bar-val { width: 80px; font-size: 12px; font-family: ‘DM Mono’, monospace; color: var(–text2); text-align: right; }
+.forecast-balance { width: 90px; text-align: right; font-size: 13px; font-family: ‘DM Mono’, monospace; font-weight: 500; }
 
-    /* Transaction filters grid */
-    #page-lancamentos > div:nth-child(3) { margin-bottom: 10px; }
+/* Installment badge */
+.inst-badge { font-size: 10.5px; padding: 2px 7px; border-radius: 10px; background: var(–purple-dim); color: var(–purple); font-weight: 500; white-space: nowrap; }
+.rec-badge { font-size: 10.5px; padding: 2px 7px; border-radius: 10px; background: var(–blue-dim); color: var(–blue); font-weight: 500; white-space: nowrap; }
 
-    /* Cat icon smaller on mobile */
-    .cat-icon { width: 28px; height: 28px; font-size: 14px; }
-    .cat-row { padding: 8px 0; }
-    .cat-row-name { font-size: 13px; }
-    .cat-row-count { font-size: 11px; }
-    .cat-row-amount { font-size: 13px; }
+/* Tooltip */
+[title] { cursor: help; }
 
-    /* Credit card visual compact */
-    .credit-card-visual { padding: 16px 18px; min-height: 130px; }
-    .card-number { font-size: 13px; letter-spacing: 1.5px; margin-bottom: 10px; }
+/* Delete btn */
+.del-btn { background: none; border: none; color: var(–text3); cursor: pointer; padding: 4px 8px; border-radius: 6px; font-size: 15px; transition: all 0.15s; }
+.del-btn:hover { background: var(–red-dim); color: var(–red); }
+.edit-btn { background: none; border: none; color: var(–text3); cursor: pointer; padding: 4px 8px; border-radius: 6px; font-size: 15px; transition: all 0.15s; }
+.edit-btn:hover { background: var(–blue-dim); color: var(–blue); }
 
-    /* Goals grid: 1 col on mobile */
-    #page-metas .grid-2 { grid-template-columns: 1fr; }
+/* Paid toggle button for transactions */
+.pay-btn { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 500; cursor: pointer; border: none; font-family: inherit; transition: all 0.15s; white-space: nowrap; }
+.pay-btn-pending { background: var(–bg4); color: var(–text2); border: 1px solid var(–border2); }
+.pay-btn-pending:hover { background: var(–green-dim); color: var(–green); border-color: rgba(0,230,153,0.4); }
+.pay-btn-done { background: var(–green-dim); color: var(–green); border: 1px solid rgba(0,230,153,0.3); }
+.pay-btn-done:hover { background: var(–bg4); color: var(–text2); border-color: var(–border2); }
+/* Dim unpaid rows slightly */
+tr.row-unpaid td { opacity: 0.65; }
 
-    /* Budget grid: 1 col */
-    #budget-list > div { grid-template-columns: 1fr !important; }
+/* Toggle */
+.toggle { position: relative; display: inline-block; width: 40px; height: 22px; flex-shrink: 0; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-slider { position: absolute; inset: 0; background: var(–bg4); border-radius: 22px; cursor: pointer; transition: 0.2s; }
+.toggle-slider:before { content: ‘’; position: absolute; width: 16px; height: 16px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.2s; }
+.toggle input:checked + .toggle-slider { background: var(–green); }
+.toggle input:checked + .toggle-slider:before { transform: translateX(18px); }
 
-    /* Auth box */
-    .auth-box { padding: 24px 18px; }
-    .auth-logo-text { font-size: 22px; }
+/* Month selector */
+.month-selector { display: flex; align-items: center; gap: 8px; }
+.month-btn { background: var(–bg3); border: 1px solid var(–border); border-radius: var(–radius-sm); padding: 6px 10px; cursor: pointer; color: var(–text); font-size: 13px; transition: all 0.15s; }
+.month-btn:hover { background: var(–bg4); }
+.month-display { font-size: 14px; font-weight: 500; min-width: 120px; text-align: center; }
 
-    /* Buttons in forms */
-    .btn { font-size: 13px; padding: 8px 14px; }
-    .btn-sm { font-size: 11.5px; padding: 5px 10px; }
+/* Spending wheel placeholder */
+.donut-wrap { display: flex; gap: 24px; align-items: center; }
+.donut-legend { flex: 1; }
+.donut-legend-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 13px; }
+.donut-legend-pct { margin-left: auto; font-weight: 500; font-family: ‘DM Mono’, monospace; }
 
-    /* Radio options wrap better */
-    .radio-group { gap: 6px; }
-    .radio-option { padding: 7px 10px; font-size: 12.5px; }
+/* Top bar */
+.topbar { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-bottom: 28px; }
+.topbar-balance { font-size: 13px; color: var(–text2); }
+.topbar-balance strong { color: var(–green); font-family: ‘DM Mono’, monospace; font-weight: 500; }
 
-    /* Form inputs */
-    .form-input, .form-select { font-size: 16px; } /* prevent iOS zoom */
-  }
+/* ── BOTTOM NAV (mobile only) ── */
+.bottom-nav {
+display: none;
+position: fixed;
+bottom: 0; left: 0; right: 0;
+background: var(–bg2);
+border-top: 1px solid var(–border);
+z-index: 200;
+padding: 6px 0 max(6px, env(safe-area-inset-bottom));
+}
+.bottom-nav-inner {
+display: flex;
+justify-content: space-around;
+align-items: center;
+}
+.bnav-item {
+display: flex; flex-direction: column; align-items: center;
+gap: 3px; padding: 4px 8px; cursor: pointer;
+color: var(–text3); font-size: 10px; font-weight: 500;
+border-radius: 10px; transition: all 0.15s; min-width: 48px;
+position: relative;
+}
+.bnav-item .bnav-icon { font-size: 20px; line-height: 1; }
+.bnav-item.active { color: var(–green); }
+.bnav-item .bnav-badge {
+position: absolute; top: 2px; right: 6px;
+background: var(–red); color: white;
+font-size: 9px; font-weight: 700;
+padding: 1px 4px; border-radius: 8px; min-width: 14px; text-align: center;
+}
+/* FAB button */
+.fab {
+position: fixed; bottom: calc(72px + max(6px, env(safe-area-inset-bottom)));
+right: 18px; z-index: 201;
+width: 52px; height: 52px; border-radius: 50%;
+background: var(–green); color: #0a1a12;
+border: none; font-size: 26px; font-weight: 300;
+cursor: pointer; box-shadow: 0 4px 20px rgba(0,230,153,0.4);
+display: none; align-items: center; justify-content: center;
+transition: transform 0.15s, box-shadow 0.15s;
+}
+.fab:active { transform: scale(0.93); box-shadow: 0 2px 10px rgba(0,230,153,0.3); }
 
-  @media (max-width: 380px) {
-    .grid-4 { grid-template-columns: 1fr 1fr; gap: 6px; }
-    .metric-value { font-size: 15px; }
-    .main { padding: 10px 10px 96px !important; }
-    .metric-card { padding: 10px 11px; }
-  }
-  /* ── AUTH SCREEN ── */
-  .auth-screen {
-    position: fixed; inset: 0; background: var(--bg);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 9998; padding: 20px;
-  }
-  .auth-screen.hidden { display: none; }
-  .auth-box {
-    background: var(--bg2); border: 1px solid var(--border2);
-    border-radius: 20px; padding: 36px 32px;
-    width: 100%; max-width: 380px;
-    box-shadow: 0 24px 64px rgba(0,0,0,0.5);
-  }
-  .auth-logo { text-align: center; margin-bottom: 28px; }
-  .auth-logo-text { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
-  .auth-logo-text span { color: var(--green); }
-  .auth-logo-sub { font-size: 13px; color: var(--text3); margin-top: 4px; }
-  .auth-tabs { display: flex; background: var(--bg3); border-radius: 10px; padding: 4px; margin-bottom: 24px; }
-  .auth-tab { flex: 1; text-align: center; padding: 8px; border-radius: 8px; cursor: pointer; font-size: 13.5px; font-weight: 500; color: var(--text2); transition: all 0.15s; }
-  .auth-tab.active { background: var(--bg2); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
-  .auth-error { background: var(--red-dim); border: 1px solid rgba(255,77,109,0.3); color: var(--red); border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 14px; display: none; }
-  .auth-success { background: var(--green-dim); border: 1px solid rgba(0,230,153,0.3); color: var(--green); border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 14px; display: none; }
-  .auth-divider { text-align: center; color: var(--text3); font-size: 12px; margin: 8px 0; }
-  .user-menu { position: relative; }
-  .user-btn { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; color: var(--text); font-size: 13px; font-family: inherit; transition: all 0.15s; }
-  .user-btn:hover { background: var(--bg4); }
-  .user-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--green-dim); border: 1.5px solid var(--green); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: var(--green); flex-shrink: 0; }
-  .user-dropdown { position: absolute; right: 0; top: calc(100% + 6px); background: var(--bg2); border: 1px solid var(--border2); border-radius: 12px; padding: 6px; min-width: 180px; z-index: 500; box-shadow: 0 8px 24px rgba(0,0,0,0.4); display: none; }
-  .user-dropdown.open { display: block; }
-  .user-dropdown-item { padding: 9px 12px; border-radius: 8px; cursor: pointer; font-size: 13px; color: var(--text2); display: flex; align-items: center; gap: 8px; transition: all 0.15s; }
-  .user-dropdown-item:hover { background: var(--bg3); color: var(--text); }
-  .user-dropdown-item.danger:hover { background: var(--red-dim); color: var(--red); }
-  .user-dropdown-divider { height: 1px; background: var(--border); margin: 4px 0; }
+@media (max-width: 768px) {
+.sidebar { display: none !important; }
+.main { margin-left: 0 !important; padding: 14px 12px 96px !important; }
+.bottom-nav { display: block; }
+.fab { display: flex; }
 
-  /* Loading overlay */
-  .loading-overlay {
-    position: fixed; inset: 0; background: rgba(15,15,19,0.85);
-    z-index: 9999; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 16px;
-    backdrop-filter: blur(4px);
-  }
-  .loading-overlay.hidden { display: none; }
-  .spinner {
-    width: 40px; height: 40px; border-radius: 50%;
-    border: 3px solid var(--border2);
-    border-top-color: var(--green);
-    animation: spin 0.7s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .loading-text { color: var(--text2); font-size: 14px; }
+```
+/* Grids */
+.grid-4 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.grid-3 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.grid-2 { grid-template-columns: 1fr; gap: 10px; }
+.form-row, .form-row-3 { grid-template-columns: 1fr; }
 
-  /* Toast */
-  .toast {
-    position: fixed; bottom: calc(80px + env(safe-area-inset-bottom));
-    left: 50%; transform: translateX(-50%);
-    background: var(--bg3); border: 1px solid var(--border2);
-    border-radius: 20px; padding: 10px 20px;
-    font-size: 13px; color: var(--text);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    z-index: 5000; opacity: 0;
-    transition: opacity 0.3s; pointer-events: none; white-space: nowrap;
-  }
-  .toast.show { opacity: 1; }
-  .toast.green { border-color: rgba(0,230,153,0.4); color: var(--green); }
-  .toast.amber  { border-color: rgba(255,179,71,0.4); color: var(--amber); }
-  .toast.red    { border-color: rgba(255,77,109,0.4); color: var(--red); }
+/* Page header */
+.page-header { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 14px; }
+.page-header > div:last-child { width: 100%; }
+.page-header .btn { display: none; }
+#page-dashboard .page-header > div:last-child { display: flex; gap: 8px; align-items: center; }
+#page-relatorios .page-header > div:last-child { display: flex; flex-direction: column; gap: 6px; }
+#page-relatorios .page-header .btn { display: flex !important; }
 
-  /* Sync indicator */
-  .sync-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--green); display: inline-block;
-    margin-left: 6px; flex-shrink: 0;
-  }
-  .sync-dot.syncing { background: var(--amber); animation: pulse 1s infinite; }
-  .sync-dot.error   { background: var(--red); }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+/* Page titles smaller on mobile */
+.page-title { font-size: 18px; }
+.page-subtitle { font-size: 12px; }
+
+/* Month selector */
+.month-selector { width: 100%; justify-content: space-between; }
+.month-display { flex: 1; text-align: center; }
+
+/* Metric cards: compact */
+.metric-card { padding: 12px 14px; }
+.metric-value { font-size: 18px; letter-spacing: -0.5px; }
+.metric-label { font-size: 10.5px; }
+.metric-sub { font-size: 11px; }
+
+/* Cards */
+.card { padding: 12px; }
+.card-title { font-size: 11px; margin-bottom: 10px; }
+
+/* Tables: horizontal scroll */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table { min-width: 420px; font-size: 12.5px; }
+th, td { padding: 8px 10px; }
+.hide-mobile { display: none !important; }
+
+/* Pay/status buttons */
+.pay-btn { font-size: 10.5px; padding: 3px 7px; }
+
+/* Tabs scrollable */
+.tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; width: 100%; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { flex-shrink: 0; padding: 6px 12px; font-size: 12.5px; }
+
+/* Modal: bottom sheet */
+.modal-overlay { align-items: flex-end; padding: 0; }
+.modal { border-radius: 20px 20px 0 0; max-height: 90vh; max-width: 100%; border-bottom: none; padding: 22px 18px; }
+.modal-title { font-size: 16px; margin-bottom: 16px; }
+
+/* Donut */
+.donut-wrap { flex-direction: column; align-items: center; height: auto !important; gap: 12px; }
+.donut-wrap > div:first-child { width: 130px !important; height: 130px !important; }
+
+/* Charts */
+.chart-container { height: 150px !important; }
+
+/* Section gaps */
+.section-gap { margin-bottom: 12px; }
+
+/* Forecast */
+.forecast-month { flex-wrap: wrap; }
+.forecast-month-name { width: 100%; margin-bottom: 4px; font-weight: 600; font-size: 12px; }
+.forecast-bar-val { font-size: 11px; }
+.forecast-balance { font-size: 12px; }
+
+/* Transaction filters grid */
+#page-lancamentos > div:nth-child(3) { margin-bottom: 10px; }
+
+/* Cat icon smaller on mobile */
+.cat-icon { width: 28px; height: 28px; font-size: 14px; }
+.cat-row { padding: 8px 0; }
+.cat-row-name { font-size: 13px; }
+.cat-row-count { font-size: 11px; }
+.cat-row-amount { font-size: 13px; }
+
+/* Credit card visual compact */
+.credit-card-visual { padding: 16px 18px; min-height: 130px; }
+.card-number { font-size: 13px; letter-spacing: 1.5px; margin-bottom: 10px; }
+
+/* Goals grid: 1 col on mobile */
+#page-metas .grid-2 { grid-template-columns: 1fr; }
+
+/* Budget grid: 1 col */
+#budget-list > div { grid-template-columns: 1fr !important; }
+
+/* Auth box */
+.auth-box { padding: 24px 18px; }
+.auth-logo-text { font-size: 22px; }
+
+/* Buttons in forms */
+.btn { font-size: 13px; padding: 8px 14px; }
+.btn-sm { font-size: 11.5px; padding: 5px 10px; }
+
+/* Radio options wrap better */
+.radio-group { gap: 6px; }
+.radio-option { padding: 7px 10px; font-size: 12.5px; }
+
+/* Form inputs */
+.form-input, .form-select { font-size: 16px; } /* prevent iOS zoom */
+```
+
+}
+
+@media (max-width: 380px) {
+.grid-4 { grid-template-columns: 1fr 1fr; gap: 6px; }
+.metric-value { font-size: 15px; }
+.main { padding: 10px 10px 96px !important; }
+.metric-card { padding: 10px 11px; }
+}
+/* ── AUTH SCREEN ── */
+.auth-screen {
+position: fixed; inset: 0; background: var(–bg);
+display: flex; align-items: center; justify-content: center;
+z-index: 9998; padding: 20px;
+}
+.auth-screen.hidden { display: none; }
+.auth-box {
+background: var(–bg2); border: 1px solid var(–border2);
+border-radius: 20px; padding: 36px 32px;
+width: 100%; max-width: 380px;
+box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+}
+.auth-logo { text-align: center; margin-bottom: 28px; }
+.auth-logo-text { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+.auth-logo-text span { color: var(–green); }
+.auth-logo-sub { font-size: 13px; color: var(–text3); margin-top: 4px; }
+.auth-tabs { display: flex; background: var(–bg3); border-radius: 10px; padding: 4px; margin-bottom: 24px; }
+.auth-tab { flex: 1; text-align: center; padding: 8px; border-radius: 8px; cursor: pointer; font-size: 13.5px; font-weight: 500; color: var(–text2); transition: all 0.15s; }
+.auth-tab.active { background: var(–bg2); color: var(–text); box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+.auth-error { background: var(–red-dim); border: 1px solid rgba(255,77,109,0.3); color: var(–red); border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 14px; display: none; }
+.auth-success { background: var(–green-dim); border: 1px solid rgba(0,230,153,0.3); color: var(–green); border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 14px; display: none; }
+.auth-divider { text-align: center; color: var(–text3); font-size: 12px; margin: 8px 0; }
+.user-menu { position: relative; }
+.user-btn { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(–bg3); border: 1px solid var(–border); border-radius: var(–radius-sm); cursor: pointer; color: var(–text); font-size: 13px; font-family: inherit; transition: all 0.15s; }
+.user-btn:hover { background: var(–bg4); }
+.user-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(–green-dim); border: 1.5px solid var(–green); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: var(–green); flex-shrink: 0; }
+.user-dropdown { position: absolute; right: 0; top: calc(100% + 6px); background: var(–bg2); border: 1px solid var(–border2); border-radius: 12px; padding: 6px; min-width: 180px; z-index: 500; box-shadow: 0 8px 24px rgba(0,0,0,0.4); display: none; }
+.user-dropdown.open { display: block; }
+.user-dropdown-item { padding: 9px 12px; border-radius: 8px; cursor: pointer; font-size: 13px; color: var(–text2); display: flex; align-items: center; gap: 8px; transition: all 0.15s; }
+.user-dropdown-item:hover { background: var(–bg3); color: var(–text); }
+.user-dropdown-item.danger:hover { background: var(–red-dim); color: var(–red); }
+.user-dropdown-divider { height: 1px; background: var(–border); margin: 4px 0; }
+
+/* Loading overlay */
+.loading-overlay {
+position: fixed; inset: 0; background: rgba(15,15,19,0.85);
+z-index: 9999; display: flex; flex-direction: column;
+align-items: center; justify-content: center; gap: 16px;
+backdrop-filter: blur(4px);
+}
+.loading-overlay.hidden { display: none; }
+.spinner {
+width: 40px; height: 40px; border-radius: 50%;
+border: 3px solid var(–border2);
+border-top-color: var(–green);
+animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { color: var(–text2); font-size: 14px; }
+
+/* Toast */
+.toast {
+position: fixed; bottom: calc(80px + env(safe-area-inset-bottom));
+left: 50%; transform: translateX(-50%);
+background: var(–bg3); border: 1px solid var(–border2);
+border-radius: 20px; padding: 10px 20px;
+font-size: 13px; color: var(–text);
+box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+z-index: 5000; opacity: 0;
+transition: opacity 0.3s; pointer-events: none; white-space: nowrap;
+}
+.toast.show { opacity: 1; }
+.toast.green { border-color: rgba(0,230,153,0.4); color: var(–green); }
+.toast.amber  { border-color: rgba(255,179,71,0.4); color: var(–amber); }
+.toast.red    { border-color: rgba(255,77,109,0.4); color: var(–red); }
+
+/* Sync indicator */
+.sync-dot {
+width: 8px; height: 8px; border-radius: 50%;
+background: var(–green); display: inline-block;
+margin-left: 6px; flex-shrink: 0;
+}
+.sync-dot.syncing { background: var(–amber); animation: pulse 1s infinite; }
+.sync-dot.error   { background: var(–red); }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 </style>
+
 </head>
 <body>
 <!-- AUTH SCREEN -->
@@ -620,6 +626,7 @@
 </div>
 
 <!-- Loading overlay -->
+
 <div class="loading-overlay" id="loading-overlay">
   <div class="spinner"></div>
   <div class="loading-text">Carregando dados...</div>
@@ -680,6 +687,7 @@
   </aside>
 
   <!-- BOTTOM NAV (mobile) -->
+
   <nav class="bottom-nav">
     <div class="bottom-nav-inner">
       <div class="bnav-item active" id="bnav-dashboard" onclick="showPage('dashboard')">
@@ -702,6 +710,7 @@
   </nav>
 
   <!-- More menu popup (mobile) -->
+
   <div id="more-menu" style="display:none;position:fixed;bottom:calc(64px + max(6px,env(safe-area-inset-bottom)));left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:8px;z-index:300;min-width:200px;box-shadow:0 8px 32px rgba(0,0,0,0.5)">
     <div class="nav-item" onclick="showPage('metas');closeMoreMenu()" style="border-radius:10px;padding:10px 16px"><span class="nav-icon">🏆</span><span>Metas</span></div>
     <div class="nav-item" onclick="showPage('relatorios');closeMoreMenu()" style="border-radius:10px;padding:10px 16px"><span class="nav-icon">📈</span><span>Relatórios</span></div>
@@ -712,255 +721,259 @@
   <div id="more-overlay" style="display:none;position:fixed;inset:0;z-index:299" onclick="closeMoreMenu()"></div>
 
   <!-- FAB -->
-  <button class="fab" onclick="openModal('add-transaction')" aria-label="Novo lançamento">+</button>
+
+<button class="fab" onclick="openModal('add-transaction')" aria-label="Novo lançamento">+</button>
 
   <!-- MAIN CONTENT -->
+
   <main class="main">
 
-    <!-- DASHBOARD -->
-    <div id="page-dashboard" class="page active">
-      <div class="page-header">
-        <div>
-          <div class="page-title">Dashboard</div>
-          <div class="page-subtitle" id="dash-date"></div>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center;width:100%">
-          <div class="month-selector" style="flex:1">
-            <button class="month-btn" onclick="changeMonth(-1)">‹</button>
-            <div class="month-display" id="month-display"></div>
-            <button class="month-btn" onclick="changeMonth(1)">›</button>
-          </div>
-          <button class="btn btn-primary" style="white-space:nowrap" onclick="openModal('add-transaction')">+ Lançamento</button>
-        </div>
+```
+<!-- DASHBOARD -->
+<div id="page-dashboard" class="page active">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Dashboard</div>
+      <div class="page-subtitle" id="dash-date"></div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;width:100%">
+      <div class="month-selector" style="flex:1">
+        <button class="month-btn" onclick="changeMonth(-1)">‹</button>
+        <div class="month-display" id="month-display"></div>
+        <button class="month-btn" onclick="changeMonth(1)">›</button>
       </div>
+      <button class="btn btn-primary" style="white-space:nowrap" onclick="openModal('add-transaction')">+ Lançamento</button>
+    </div>
+  </div>
 
-      <div class="grid-4 section-gap" id="dash-metrics"></div>
+  <div class="grid-4 section-gap" id="dash-metrics"></div>
 
-      <div class="grid-2 section-gap">
-        <div class="card">
-          <div class="card-title">Fluxo do Mês</div>
-          <div class="chart-container" style="height:200px" id="chart-flow-wrap">
-            <canvas id="chart-flow"></canvas>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-title">Gastos por Categoria</div>
-          <div class="donut-wrap" style="height:200px" id="donut-wrap-el">
-            <div style="width:160px;height:160px;flex-shrink:0;" id="donut-size-el">
-              <canvas id="chart-donut"></canvas>
-            </div>
-            <div class="donut-legend" id="donut-legend"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid-2 section-gap">
-        <div class="card">
-          <div class="card-title" style="display:flex;justify-content:space-between;margin-bottom:4px">
-            <span>💸 A Pagar</span>
-            <span style="color:var(--text3);cursor:pointer;font-size:11.5px" onclick="goToTab('a_pagar')">Ver todas →</span>
-          </div>
-          <div id="dash-bills-pagar"></div>
-          <div class="card-title" style="display:flex;justify-content:space-between;margin-top:16px;margin-bottom:4px">
-            <span>💰 A Receber</span>
-            <span style="color:var(--text3);cursor:pointer;font-size:11.5px" onclick="goToTab('a_receber')">Ver todas →</span>
-          </div>
-          <div id="dash-bills-receber"></div>
-        </div>
-
-      </div>
-
-      <div class="card section-gap">
-        <div class="card-title">Orçamento por Categoria</div>
-        <div id="dash-budget-progress"></div>
+  <div class="grid-2 section-gap">
+    <div class="card">
+      <div class="card-title">Fluxo do Mês</div>
+      <div class="chart-container" style="height:200px" id="chart-flow-wrap">
+        <canvas id="chart-flow"></canvas>
       </div>
     </div>
-
-    <!-- LANÇAMENTOS -->
-    <div id="page-lancamentos" class="page">
-      <div class="page-header">
-        <div>
-          <div class="page-title">Lançamentos</div>
-          <div class="page-subtitle">Receitas, despesas e contas a pagar</div>
+    <div class="card">
+      <div class="card-title">Gastos por Categoria</div>
+      <div class="donut-wrap" style="height:200px" id="donut-wrap-el">
+        <div style="width:160px;height:160px;flex-shrink:0;" id="donut-size-el">
+          <canvas id="chart-donut"></canvas>
         </div>
-        <button class="btn btn-primary" onclick="openModal('add-transaction')">+ Novo Lançamento</button>
-      </div>
-
-      <!-- Summary metrics -->
-      <div class="section-gap" id="trans-metrics" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px"></div>
-
-      <!-- Tabs: status filter -->
-      <div style="margin-bottom:14px">
-        <div class="tabs" style="margin-bottom:12px;width:100%">
-          <div class="tab active" id="tab-todas"      onclick="setTransTab('todas',this)">Todos</div>
-          <div class="tab"        id="tab-a_pagar"   onclick="setTransTab('a_pagar',this)">A Pagar</div>
-          <div class="tab"        id="tab-a_receber" onclick="setTransTab('a_receber',this)">A Receber</div>
-          <div class="tab"        id="tab-vencidos"  onclick="setTransTab('vencidos',this)">Vencidos</div>
-          <div class="tab"        id="tab-pagos"     onclick="setTransTab('pagos',this)">Pagos</div>
-        </div>
-        <!-- Month navigator -->
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-          <button onclick="shiftFilterMonth(-1)" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:6px 12px;cursor:pointer;color:var(--text);font-size:16px;line-height:1">‹</button>
-          <div id="filter-month-display" style="flex:1;text-align:center;font-size:15px;font-weight:600;color:var(--text);cursor:pointer" onclick="setFilterMonthToday()"></div>
-          <button onclick="shiftFilterMonth(1)" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:6px 12px;cursor:pointer;color:var(--text);font-size:16px;line-height:1">›</button>
-          <button id="btn-all-months" onclick="setFilterMonthAll()" style="background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:5px 10px;cursor:pointer;color:var(--text2);font-size:11.5px;white-space:nowrap">Todos</button>
-        </div>
-        <!-- Search + filters row -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <input class="form-input" style="grid-column:1/-1" placeholder="🔍 Buscar..." id="search-trans" oninput="renderTransactions()">
-          <select class="form-select" id="filter-type" onchange="renderTransactions()">
-            <option value="">Todos tipos</option>
-            <option value="receita">Receitas</option>
-            <option value="despesa">Despesas</option>
-          </select>
-          <select class="form-select" id="filter-sort" onchange="renderTransactions()">
-            <option value="vencimento">📅 A vencer primeiro</option>
-            <option value="recentes">🕐 Mais recentes</option>
-            <option value="valor_maior">💰 Maior valor</option>
-            <option value="valor_menor">💰 Menor valor</option>
-          </select>
-          <select class="form-select" style="grid-column:1/-1" id="filter-cat" onchange="renderTransactions()">
-            <option value="">Todas categorias</option>
-          </select>
-        </div>
-        <!-- Hidden input to hold current month value for renderTransactions -->
-        <input type="hidden" id="filter-month" value="">
-      </div>
-
-      <div class="card">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Data</th>
-                <th>Descrição</th>
-                <th class="hide-mobile">Categoria</th>
-                <th class="hide-mobile">Tipo</th>
-                <th class="hide-mobile">Recorrência</th>
-                <th>Status</th>
-                <th style="text-align:right">Valor</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="trans-tbody"></tbody>
-          </table>
-        </div>
+        <div class="donut-legend" id="donut-legend"></div>
       </div>
     </div>
+  </div>
 
-    <!-- CARTÕES -->
-    <div id="page-cartoes" class="page">
-      <div class="page-header">
-        <div>
-          <div class="page-title">Cartões de Crédito</div>
-          <div class="page-subtitle">Controle de limites e faturas</div>
-        </div>
-        <button class="btn btn-primary" onclick="openModal('add-card')">+ Novo Cartão</button>
+  <div class="grid-2 section-gap">
+    <div class="card">
+      <div class="card-title" style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span>💸 A Pagar</span>
+        <span style="color:var(--text3);cursor:pointer;font-size:11.5px" onclick="goToTab('a_pagar')">Ver todas →</span>
       </div>
-
-      <div id="cards-list" class="grid-2 section-gap"></div>
-
-      <div class="card">
-        <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-          <span>Gastos nos Cartões</span>
-          <select class="form-select" style="width:180px" id="card-filter" onchange="renderCardTransactions()">
-            <option value="">Todos os cartões</option>
-          </select>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Data</th>
-                <th>Descrição</th>
-                <th class="hide-mobile">Cartão</th>
-                <th class="hide-mobile">Parcela</th>
-                <th style="text-align:right">Valor</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="card-trans-tbody"></tbody>
-          </table>
-        </div>
+      <div id="dash-bills-pagar"></div>
+      <div class="card-title" style="display:flex;justify-content:space-between;margin-top:16px;margin-bottom:4px">
+        <span>💰 A Receber</span>
+        <span style="color:var(--text3);cursor:pointer;font-size:11.5px" onclick="goToTab('a_receber')">Ver todas →</span>
       </div>
+      <div id="dash-bills-receber"></div>
     </div>
 
-    <!-- ORÇAMENTO -->
-    <div id="page-orcamento" class="page">
-      <div class="page-header">
-        <div>
-          <div class="page-title">Orçamento</div>
-          <div class="page-subtitle">Limites por categoria</div>
-        </div>
-        <button class="btn btn-primary" onclick="openModal('add-budget')">+ Definir Limite</button>
-      </div>
+  </div>
 
-      <div id="budget-list"></div>
-    </div>
+  <div class="card section-gap">
+    <div class="card-title">Orçamento por Categoria</div>
+    <div id="dash-budget-progress"></div>
+  </div>
+</div>
 
-    <!-- METAS -->
-    <div id="page-metas" class="page">
-      <div class="page-header">
-        <div>
-          <div class="page-title">Metas Financeiras</div>
-          <div class="page-subtitle">Acompanhe seus objetivos</div>
-        </div>
-        <button class="btn btn-primary" onclick="openModal('add-goal')">+ Nova Meta</button>
-      </div>
-      <div id="goals-list" class="grid-2"></div>
+<!-- LANÇAMENTOS -->
+<div id="page-lancamentos" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Lançamentos</div>
+      <div class="page-subtitle">Receitas, despesas e contas a pagar</div>
     </div>
+    <button class="btn btn-primary" onclick="openModal('add-transaction')">+ Novo Lançamento</button>
+  </div>
 
-    <!-- RELATÓRIOS -->
-    <div id="page-relatorios" class="page">
-      <div class="page-header">
-        <div>
-          <div class="page-title">Relatórios</div>
-          <div class="page-subtitle">Análise histórica</div>
-        </div>
-        <div style="display:flex;gap:8px">
-          <button class="btn btn-secondary" onclick="exportExcel('mes')">📊 Excel do Mês</button>
-          <button class="btn btn-secondary" onclick="exportExcel('tudo')">📥 Excel Completo</button>
-        </div>
-      </div>
-      <div class="card section-gap">
-        <div class="card-title">Receitas vs Despesas — Últimos 6 meses</div>
-        <div style="height:min(280px,50vw)"><canvas id="chart-history"></canvas></div>
-      </div>
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title">Maiores Gastos do Mês</div>
-          <div id="report-top-expenses"></div>
-        </div>
-        <div class="card">
-          <div class="card-title">Evolução do Saldo</div>
-          <div style="height:min(180px,40vw)"><canvas id="chart-balance"></canvas></div>
-        </div>
-      </div>
-    </div>
+  <!-- Summary metrics -->
+  <div class="section-gap" id="trans-metrics" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px"></div>
 
-    <!-- PREVISÃO -->
-    <div id="page-previsao" class="page">
-      <div class="page-header">
-        <div>
-          <div class="page-title">Previsão Financeira</div>
-          <div class="page-subtitle">Próximos 6 meses com base em lançamentos recorrentes</div>
-        </div>
-      </div>
-      <div class="grid-2 section-gap">
-        <div class="card">
-          <div class="card-title">Receita Prevista vs Gasto Previsto</div>
-          <div style="height:min(220px,45vw)"><canvas id="chart-forecast"></canvas></div>
-        </div>
-        <div class="card">
-          <div class="card-title">Saldo Projetado</div>
-          <div style="height:min(220px,45vw)"><canvas id="chart-balance-forecast"></canvas></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title" style="margin-bottom:12px">Detalhamento por Mês</div>
-        <div id="forecast-detail"></div>
-      </div>
+  <!-- Tabs: status filter -->
+  <div style="margin-bottom:14px">
+    <div class="tabs" style="margin-bottom:12px;width:100%">
+      <div class="tab active" id="tab-todas"      onclick="setTransTab('todas',this)">Todos</div>
+      <div class="tab"        id="tab-a_pagar"   onclick="setTransTab('a_pagar',this)">A Pagar</div>
+      <div class="tab"        id="tab-a_receber" onclick="setTransTab('a_receber',this)">A Receber</div>
+      <div class="tab"        id="tab-vencidos"  onclick="setTransTab('vencidos',this)">Vencidos</div>
+      <div class="tab"        id="tab-pagos"     onclick="setTransTab('pagos',this)">Pagos</div>
     </div>
+    <!-- Month navigator -->
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+      <button onclick="shiftFilterMonth(-1)" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:6px 12px;cursor:pointer;color:var(--text);font-size:16px;line-height:1">‹</button>
+      <div id="filter-month-display" style="flex:1;text-align:center;font-size:15px;font-weight:600;color:var(--text);cursor:pointer" onclick="setFilterMonthToday()"></div>
+      <button onclick="shiftFilterMonth(1)" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:6px 12px;cursor:pointer;color:var(--text);font-size:16px;line-height:1">›</button>
+      <button id="btn-all-months" onclick="setFilterMonthAll()" style="background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:5px 10px;cursor:pointer;color:var(--text2);font-size:11.5px;white-space:nowrap">Todos</button>
+    </div>
+    <!-- Search + filters row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <input class="form-input" style="grid-column:1/-1" placeholder="🔍 Buscar..." id="search-trans" oninput="renderTransactions()">
+      <select class="form-select" id="filter-type" onchange="renderTransactions()">
+        <option value="">Todos tipos</option>
+        <option value="receita">Receitas</option>
+        <option value="despesa">Despesas</option>
+      </select>
+      <select class="form-select" id="filter-sort" onchange="renderTransactions()">
+        <option value="vencimento">📅 A vencer primeiro</option>
+        <option value="recentes">🕐 Mais recentes</option>
+        <option value="valor_maior">💰 Maior valor</option>
+        <option value="valor_menor">💰 Menor valor</option>
+      </select>
+      <select class="form-select" style="grid-column:1/-1" id="filter-cat" onchange="renderTransactions()">
+        <option value="">Todas categorias</option>
+      </select>
+    </div>
+    <!-- Hidden input to hold current month value for renderTransactions -->
+    <input type="hidden" id="filter-month" value="">
+  </div>
+
+  <div class="card">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th class="hide-mobile">Categoria</th>
+            <th class="hide-mobile">Tipo</th>
+            <th class="hide-mobile">Recorrência</th>
+            <th>Status</th>
+            <th style="text-align:right">Valor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="trans-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- CARTÕES -->
+<div id="page-cartoes" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Cartões de Crédito</div>
+      <div class="page-subtitle">Controle de limites e faturas</div>
+    </div>
+    <button class="btn btn-primary" onclick="openModal('add-card')">+ Novo Cartão</button>
+  </div>
+
+  <div id="cards-list" class="grid-2 section-gap"></div>
+
+  <div class="card">
+    <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <span>Gastos nos Cartões</span>
+      <select class="form-select" style="width:180px" id="card-filter" onchange="renderCardTransactions()">
+        <option value="">Todos os cartões</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th class="hide-mobile">Cartão</th>
+            <th class="hide-mobile">Parcela</th>
+            <th style="text-align:right">Valor</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="card-trans-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ORÇAMENTO -->
+<div id="page-orcamento" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Orçamento</div>
+      <div class="page-subtitle">Limites por categoria</div>
+    </div>
+    <button class="btn btn-primary" onclick="openModal('add-budget')">+ Definir Limite</button>
+  </div>
+
+  <div id="budget-list"></div>
+</div>
+
+<!-- METAS -->
+<div id="page-metas" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Metas Financeiras</div>
+      <div class="page-subtitle">Acompanhe seus objetivos</div>
+    </div>
+    <button class="btn btn-primary" onclick="openModal('add-goal')">+ Nova Meta</button>
+  </div>
+  <div id="goals-list" class="grid-2"></div>
+</div>
+
+<!-- RELATÓRIOS -->
+<div id="page-relatorios" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Relatórios</div>
+      <div class="page-subtitle">Análise histórica</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-secondary" onclick="exportExcel('mes')">📊 Excel do Mês</button>
+      <button class="btn btn-secondary" onclick="exportExcel('tudo')">📥 Excel Completo</button>
+    </div>
+  </div>
+  <div class="card section-gap">
+    <div class="card-title">Receitas vs Despesas — Últimos 6 meses</div>
+    <div style="height:min(280px,50vw)"><canvas id="chart-history"></canvas></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Maiores Gastos do Mês</div>
+      <div id="report-top-expenses"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Evolução do Saldo</div>
+      <div style="height:min(180px,40vw)"><canvas id="chart-balance"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- PREVISÃO -->
+<div id="page-previsao" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Previsão Financeira</div>
+      <div class="page-subtitle">Próximos 6 meses com base em lançamentos recorrentes</div>
+    </div>
+  </div>
+  <div class="grid-2 section-gap">
+    <div class="card">
+      <div class="card-title">Receita Prevista vs Gasto Previsto</div>
+      <div style="height:min(220px,45vw)"><canvas id="chart-forecast"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Saldo Projetado</div>
+      <div style="height:min(220px,45vw)"><canvas id="chart-balance-forecast"></canvas></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title" style="margin-bottom:12px">Detalhamento por Mês</div>
+    <div id="forecast-detail"></div>
+  </div>
+</div>
+```
 
   </main>
 </div>
@@ -968,6 +981,7 @@
 <!-- MODALS -->
 
 <!-- Add Transaction -->
+
 <div class="modal-overlay" id="modal-add-transaction">
   <div class="modal">
     <div class="modal-title">
@@ -1054,6 +1068,7 @@
 </div>
 
 <!-- Add Bill -->
+
 <div class="modal-overlay" id="modal-add-bill">
   <div class="modal">
     <div class="modal-title">
@@ -1097,6 +1112,7 @@
 </div>
 
 <!-- Add Card -->
+
 <div class="modal-overlay" id="modal-add-card">
   <div class="modal">
     <div class="modal-title">
@@ -1143,6 +1159,7 @@
 </div>
 
 <!-- Add Budget -->
+
 <div class="modal-overlay" id="modal-add-budget">
   <div class="modal" style="max-width:380px">
     <div class="modal-title">
@@ -1167,6 +1184,7 @@
 </div>
 
 <!-- Add Goal -->
+
 <div class="modal-overlay" id="modal-add-goal">
   <div class="modal" style="max-width:420px">
     <div class="modal-title">
@@ -1215,6 +1233,7 @@
 </div>
 
 <!-- Goal Saving Modal -->
+
 <div class="modal-overlay" id="modal-goal-saving">
   <div class="modal" style="max-width:400px">
     <div class="modal-title">
@@ -1248,6 +1267,7 @@
 </div>
 
 <!-- Delete Scope Modal -->
+
 <div class="modal-overlay" id="modal-delete-scope">
   <div class="modal" style="max-width:360px">
     <div class="modal-title">
@@ -1269,6 +1289,7 @@
 </div>
 
 <!-- Edit Transaction Modal -->
+
 <div class="modal-overlay" id="modal-edit-transaction">
   <div class="modal">
     <div class="modal-title">
@@ -1330,6 +1351,7 @@
 </div>
 
 <!-- Recurrence Scope Modal -->
+
 <div class="modal-overlay" id="modal-rec-scope">
   <div class="modal" style="max-width:360px">
     <div class="modal-title">
@@ -1596,6 +1618,7 @@ function save() { localStorage.setItem('finpro_state', JSON.stringify(state)); }
 // ============================================================
 const fmt = v => (v < 0 ? '-' : '') + 'R$ ' + Math.abs(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const fmtShort = v => (v < 0 ? '-' : '') + 'R$ ' + Math.abs(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const formatDateLocal = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const fmtDate = s => { if(!s) return ''; const [y,m,d]=s.split('-'); return `${d}/${m}/${y}`; };
 const today = () => new Date().toISOString().slice(0,10);
 const monthStr = (m,y) => new Date(y,m,1).toLocaleString('pt-BR',{month:'long',year:'numeric'});
@@ -1617,33 +1640,33 @@ function getTrMonthTransactions(m, y) {
 function getMonthTotals(m, y, onlyPaid=false) {
   const txs = getTrMonthTransactions(m, y);
   const filtered = onlyPaid ? txs.filter(t=>t.paid===true) : txs;
-  const income = Math.round(filtered.filter(t=>t.type==='receita').reduce((a,t)=>a+t.value,0) * 100) / 100;
-  const expense = Math.round(filtered.filter(t=>t.type==='despesa').reduce((a,t)=>a+t.value,0) * 100) / 100;
+  const income = filtered.filter(t=>t.type==='receita').reduce((a,t)=>a+t.value,0);
+  const expense = filtered.filter(t=>t.type==='despesa').reduce((a,t)=>a+t.value,0);
   // also compute pending separately
-  const incPending = onlyPaid ? 0 : Math.round(txs.filter(t=>t.type==='receita'&&t.paid===false).reduce((a,t)=>a+t.value,0) * 100) / 100;
-  const expPending = onlyPaid ? 0 : Math.round(txs.filter(t=>t.type==='despesa'&&t.paid===false).reduce((a,t)=>a+t.value,0) * 100) / 100;
-  return {income, expense, balance: Math.round((income - expense) * 100) / 100, incPending, expPending};
+  const incPending = onlyPaid ? 0 : txs.filter(t=>t.type==='receita'&&t.paid===false).reduce((a,t)=>a+t.value,0);
+  const expPending = onlyPaid ? 0 : txs.filter(t=>t.type==='despesa'&&t.paid===false).reduce((a,t)=>a+t.value,0);
+  return {income, expense, balance: income - expense, incPending, expPending};
 }
 
 function getCurrentBalance() {
   // Only explicitly paid/received transactions affect real balance
   const income = state.transactions.filter(t=>t.type==='receita' && t.paid===true).reduce((a,t)=>a+t.value,0);
   const expense = state.transactions.filter(t=>t.type==='despesa' && t.paid===true).reduce((a,t)=>a+t.value,0);
-  return Math.round((income - expense) * 100) / 100;
+  return income - expense;
 }
 
 function getPendingBalance() {
   // Future/unpaid transactions - impact on balance when paid
   const incPending = state.transactions.filter(t=>t.type==='receita' && t.paid===false).reduce((a,t)=>a+t.value,0);
   const expPending = state.transactions.filter(t=>t.type==='despesa' && t.paid===false).reduce((a,t)=>a+t.value,0);
-  return Math.round((incPending - expPending) * 100) / 100;
+  return incPending - expPending;
 }
 
 function getMonthForecast(m, y) {
   // Total expected at end of month = paid + pending
   const txs = getTrMonthTransactions(m, y);
-  const totalInc = Math.round(txs.filter(t=>t.type==='receita').reduce((a,t)=>a+t.value,0) * 100) / 100;
-  const totalExp = Math.round(txs.filter(t=>t.type==='despesa').reduce((a,t)=>a+t.value,0) * 100) / 100;
+  const totalInc = txs.filter(t=>t.type==='receita').reduce((a,t)=>a+t.value,0);
+  const totalExp = txs.filter(t=>t.type==='despesa').reduce((a,t)=>a+t.value,0);
   return { totalInc, totalExp };
 }
 function getMonthFreeBalance() {
@@ -1654,7 +1677,7 @@ function getMonthFreeBalance() {
   const txs = getTrMonthTransactions(m, y);
   const pendingInc = txs.filter(t=>t.type==='receita'&&t.paid!==true).reduce((a,t)=>a+t.value,0);
   const pendingExp = txs.filter(t=>t.type==='despesa'&&t.paid!==true).reduce((a,t)=>a+t.value,0);
-  return Math.round((currentBal + pendingInc - pendingExp) * 100) / 100;
+  return currentBal + pendingInc - pendingExp;
 }
 function getSpendingRates() {
   const now = new Date();
@@ -1664,8 +1687,8 @@ function getSpendingRates() {
   const freeBalance = getMonthFreeBalance();
   return {
     freeBalance,
-    perDay:  freeBalance > 0 ? Math.round((freeBalance / daysLeft) * 100) / 100 : 0,
-    perWeek: freeBalance > 0 ? Math.round((freeBalance / weeksLeft) * 100) / 100 : 0,
+    perDay:  freeBalance > 0 ? freeBalance / daysLeft  : 0,
+    perWeek: freeBalance > 0 ? freeBalance / weeksLeft : 0,
     daysLeft,
   };
 }
@@ -1679,9 +1702,9 @@ function getBillStatus(bill) {
 }
 
 function getCardSpending(cardId) {
-  return Math.round(state.transactions
+  return state.transactions
     .filter(t => t.cardId === cardId && t.type === 'despesa')
-    .reduce((a,t)=>a+t.value,0) * 100) / 100;
+    .reduce((a,t)=>a+t.value,0);
 }
 
 // ============================================================
@@ -1848,7 +1871,7 @@ function saveTransaction(e) {
   const type = document.querySelector('input[name="trans-type"]:checked').value;
   const date = document.getElementById('trans-date').value;
   const desc = document.getElementById('trans-desc').value.trim();
-  const value = Math.round(parseFloat(document.getElementById('trans-value').value) * 100) / 100;
+  const value = parseFloat(document.getElementById('trans-value').value);
   const cat = document.getElementById('trans-cat').value;
   const obs = document.getElementById('trans-obs').value.trim();
   const cardId = document.getElementById('trans-card').value || null;
@@ -1923,7 +1946,7 @@ function saveBill(e) {
   state.bills.push({
     id: Date.now(),
     desc: document.getElementById('bill-desc').value.trim(),
-    value: Math.round(parseFloat(document.getElementById('bill-value').value) * 100) / 100,
+    value: parseFloat(document.getElementById('bill-value').value),
     due: document.getElementById('bill-due').value,
     cat: document.getElementById('bill-cat').value,
     recurrence: document.getElementById('bill-recurrence').value,
@@ -1943,7 +1966,7 @@ function saveCard(e) {
     name: document.getElementById('card-name').value.trim(),
     brand: document.getElementById('card-brand').value,
     digits: document.getElementById('card-digits').value,
-    limit: Math.round(parseFloat(document.getElementById('card-limit').value) * 100) / 100,
+    limit: parseFloat(document.getElementById('card-limit').value),
     close: parseInt(document.getElementById('card-close').value),
     dueDay: parseInt(document.getElementById('card-due-day').value),
     color: colors[state.cards.length % colors.length],
@@ -1961,7 +1984,7 @@ function saveCard(e) {
 function saveBudget(e) {
   e.preventDefault();
   const bcat = document.getElementById('budget-cat').value;
-  const blimit = Math.round(parseFloat(document.getElementById('budget-limit').value) * 100) / 100;
+  const blimit = parseFloat(document.getElementById('budget-limit').value);
   state.budgets[bcat] = blimit;
   save();
   closeModal('add-budget');
@@ -1978,8 +2001,8 @@ function saveGoal(e) {
     id: Date.now(),
     name: document.getElementById('goal-name').value.trim(),
     icon: document.getElementById('goal-icon').value,
-    target: Math.round(parseFloat(document.getElementById('goal-target').value) * 100) / 100,
-    saved: Math.round((parseFloat(document.getElementById('goal-saved').value)||0) * 100) / 100,
+    target: parseFloat(document.getElementById('goal-target').value),
+    saved: parseFloat(document.getElementById('goal-saved').value)||0,
     date: document.getElementById('goal-date').value,
   };
   state.goals.push(newGoal);
@@ -2079,10 +2102,10 @@ function saveGoalSaving(e) {
   const id = window._goalSavingId;
   const g = state.goals.find(g=>g.id===id);
   if(!g) return;
-  const amt = Math.round(parseFloat(document.getElementById('gs-amount').value) * 100) / 100;
+  const amt = parseFloat(document.getElementById('gs-amount').value);
   if(isNaN(amt)||amt<=0) return;
   const deduct = document.getElementById('gs-deduct').checked;
-  g.saved = Math.round(Math.min(g.target, g.saved + amt) * 100) / 100;
+  g.saved = Math.min(g.target, g.saved + amt);
   let newTx = null;
   if(deduct) {
     newTx = {
@@ -2451,11 +2474,11 @@ function renderTransactions() {
   const aPagarT  = monthTxs.filter(t=>t.paid===false && t.type==='despesa' && getDaysLeft(t.date)>=0);
   const aRecebT  = monthTxs.filter(t=>t.paid===false && t.type==='receita' && getDaysLeft(t.date)>=0);
   const overdueT = monthTxs.filter(t=>t.paid===false && getDaysLeft(t.date)<0);
-  const totalInc   = Math.round(paidT.filter(t=>t.type==='receita').reduce((a,t)=>a+t.value,0) * 100) / 100;
-  const totalExp   = Math.round(paidT.filter(t=>t.type==='despesa').reduce((a,t)=>a+t.value,0) * 100) / 100;
-  const aPagarAmt  = Math.round(aPagarT.reduce((a,t)=>a+t.value,0) * 100) / 100;
-  const aRecebAmt  = Math.round(aRecebT.reduce((a,t)=>a+t.value,0) * 100) / 100;
-  const overdueAmt = Math.round(overdueT.reduce((a,t)=>a+t.value,0) * 100) / 100;
+  const totalInc   = paidT.filter(t=>t.type==='receita').reduce((a,t)=>a+t.value,0);
+  const totalExp   = paidT.filter(t=>t.type==='despesa').reduce((a,t)=>a+t.value,0);
+  const aPagarAmt  = aPagarT.reduce((a,t)=>a+t.value,0);
+  const aRecebAmt  = aRecebT.reduce((a,t)=>a+t.value,0);
+  const overdueAmt = overdueT.reduce((a,t)=>a+t.value,0);
   const monthLabel = activeMonth ? (()=>{const[y,mo]=activeMonth.split('-');return MONTHS_SHORT[parseInt(mo)-1]+'/'+y;})() : 'Todos';
 
   const metricsEl = document.getElementById('trans-metrics');
@@ -2547,7 +2570,7 @@ function renderCards() {
   const cardsList = document.getElementById('cards-list');
   cardsList.innerHTML = state.cards.length ? state.cards.map(card=>{
     const spent = getCardSpending(card.id);
-    const available = Math.round(Math.max(0, card.limit - spent) * 100) / 100;
+    const available = Math.max(0, card.limit - spent);
     const pct = Math.min(100, Math.round(spent/card.limit*100));
     const lastFour = card.digits || '****';
     return `<div>
@@ -2625,7 +2648,7 @@ function renderBudget() {
     return;
   }
   const cards = budgetEntries.map(function([cat,limit]){
-    const spent = Math.round((catExp[cat]||0) * 100) / 100;
+    const spent = catExp[cat]||0;
     const pct = Math.min(100, Math.round(spent/limit*100));
     const over = spent>limit;
     const cat2 = getCat(cat);
@@ -2640,7 +2663,7 @@ function renderBudget() {
       +'<div><div style="font-size:14px;font-weight:500">'+cat2.name+'</div>'
       +'<div style="font-size:12px;color:var(--text3)">'+MONTHS_SHORT[m]+' '+y+'</div></div>'
       +'</div>'
-      +'<button class="del-btn" onclick="deleteBudget("'+cat+'")">🗑</button>'
+      +'<button class="del-btn" onclick="deleteBudget(\"'+cat+'\")">🗑</button>'
       +'</div>'
       +'<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px">'
       +'<span style="color:var(--text2)">Gasto: <strong style="color:'+(over?'var(--red)':'var(--text)')+'">'+fmt(spent)+'</strong></span>'
@@ -2671,7 +2694,7 @@ function renderGoals() {
   }
   el.innerHTML = state.goals.map(g=>{
     const pct = Math.min(100, Math.round(g.saved/g.target*100));
-    const remaining = Math.round((g.target - g.saved) * 100) / 100;
+    const remaining = g.target - g.saved;
     let daysLeft = '', monthlyNeeded = '';
     if(g.date) {
       const dl = getDaysLeft(g.date);
@@ -2754,7 +2777,7 @@ function renderReports() {
   const balData = months6.map(({m,y})=>{
     const {balance} = getMonthTotals(m,y);
     cumBal += balance;
-    return Math.round(cumBal * 100) / 100;
+    return parseFloat(cumBal.toFixed(2));
   });
   if(chartBalRep) chartBalRep.destroy();
   chartBalRep = new Chart(document.getElementById('chart-balance'),{
@@ -2806,12 +2829,12 @@ function renderForecast() {
       }
     });
     // NOTE: state.bills is legacy and no longer used for forecasting
-    return {inc: Math.round(inc * 100) / 100, exp: Math.round(exp * 100) / 100};
+    return {inc: parseFloat(inc.toFixed(2)), exp: parseFloat(exp.toFixed(2))};
   }
 
   const projections = months.map(({m,y})=>({...projectMonth(m,y),label:MONTHS_SHORT[m]+' '+y}));
   let runBal = getCurrentBalance(); // always uses live balance
-  const balProj = projections.map(p=>{runBal+=p.inc-p.exp; return Math.round(runBal * 100) / 100;});
+  const balProj = projections.map(p=>{runBal+=p.inc-p.exp; return parseFloat(runBal.toFixed(2));});
 
   if(chartForecast) chartForecast.destroy();
   chartForecast = new Chart(document.getElementById('chart-forecast'),{
@@ -2835,7 +2858,7 @@ function renderForecast() {
   let runBal2 = getCurrentBalance(); // live
   document.getElementById('forecast-detail').innerHTML = projections.map((p,i)=>{
     runBal2 += p.inc - p.exp;
-    const delta = Math.round((p.inc - p.exp) * 100) / 100;
+    const delta = p.inc - p.exp;
     return `<div class="forecast-month">
       <div class="forecast-month-name">${p.label}</div>
       <div class="forecast-bars">
@@ -2881,16 +2904,16 @@ function exportExcel(mode) {
   ]);
 
   // Summary block
-  const paidInc = Math.round(txs.filter(t=>t.type==='receita'&&t.paid===true).reduce((a,t)=>a+t.value,0) * 100) / 100;
-  const paidExp = Math.round(txs.filter(t=>t.type==='despesa'&&t.paid===true).reduce((a,t)=>a+t.value,0) * 100) / 100;
-  const pendAmt = Math.round(txs.filter(t=>t.paid===false).reduce((a,t)=>a+t.value,0) * 100) / 100;
+  const paidInc = txs.filter(t=>t.type==='receita'&&t.paid===true).reduce((a,t)=>a+t.value,0);
+  const paidExp = txs.filter(t=>t.type==='despesa'&&t.paid===true).reduce((a,t)=>a+t.value,0);
+  const pendAmt = txs.filter(t=>t.paid===false).reduce((a,t)=>a+t.value,0);
 
   const summaryRows = [
     [],
     ['=== RESUMO ==='],
     ['Total Receitas Pagas','',paidInc.toFixed(2).replace('.',',')],
     ['Total Despesas Pagas','',paidExp.toFixed(2).replace('.',',')],
-    ['Saldo do Período','',(Math.round((paidInc-paidExp)*100)/100).toFixed(2).replace('.',',')],
+    ['Saldo do Período','',(paidInc-paidExp).toFixed(2).replace('.',',')],
     ['Total Pendente','',pendAmt.toFixed(2).replace('.',',')],
   ];
 
@@ -2989,7 +3012,7 @@ function saveEditTransaction(e) {
     type:  document.querySelector('input[name="edit-trans-type"]:checked').value,
     date:  document.getElementById('edit-trans-date').value,
     desc:  document.getElementById('edit-trans-desc').value.trim(),
-    value: Math.round(parseFloat(document.getElementById('edit-trans-value').value) * 100) / 100,
+    value: parseFloat(document.getElementById('edit-trans-value').value),
     cat:   document.getElementById('edit-trans-cat').value,
     obs:   document.getElementById('edit-trans-obs').value.trim(),
     paid:  document.getElementById('edit-trans-paid').checked,
@@ -3269,5 +3292,6 @@ async function startApp() {
 
 startApp();
 </script>
+
 </body>
 </html>
