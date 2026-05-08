@@ -1617,33 +1617,33 @@ function getTrMonthTransactions(m, y) {
 function getMonthTotals(m, y, onlyPaid=false) {
   const txs = getTrMonthTransactions(m, y);
   const filtered = onlyPaid ? txs.filter(t=>t.paid===true) : txs;
-  const income = filtered.filter(t=>t.type==='receita').reduce((a,t)=>a+t.value,0);
-  const expense = filtered.filter(t=>t.type==='despesa').reduce((a,t)=>a+t.value,0);
+  const income = Math.round(filtered.filter(t=>t.type==='receita').reduce((a,t)=>a+t.value,0) * 100) / 100;
+  const expense = Math.round(filtered.filter(t=>t.type==='despesa').reduce((a,t)=>a+t.value,0) * 100) / 100;
   // also compute pending separately
-  const incPending = onlyPaid ? 0 : txs.filter(t=>t.type==='receita'&&t.paid===false).reduce((a,t)=>a+t.value,0);
-  const expPending = onlyPaid ? 0 : txs.filter(t=>t.type==='despesa'&&t.paid===false).reduce((a,t)=>a+t.value,0);
-  return {income, expense, balance: income - expense, incPending, expPending};
+  const incPending = onlyPaid ? 0 : Math.round(txs.filter(t=>t.type==='receita'&&t.paid===false).reduce((a,t)=>a+t.value,0) * 100) / 100;
+  const expPending = onlyPaid ? 0 : Math.round(txs.filter(t=>t.type==='despesa'&&t.paid===false).reduce((a,t)=>a+t.value,0) * 100) / 100;
+  return {income, expense, balance: Math.round((income - expense) * 100) / 100, incPending, expPending};
 }
 
 function getCurrentBalance() {
   // Only explicitly paid/received transactions affect real balance
   const income = state.transactions.filter(t=>t.type==='receita' && t.paid===true).reduce((a,t)=>a+t.value,0);
   const expense = state.transactions.filter(t=>t.type==='despesa' && t.paid===true).reduce((a,t)=>a+t.value,0);
-  return income - expense;
+  return Math.round((income - expense) * 100) / 100;
 }
 
 function getPendingBalance() {
   // Future/unpaid transactions - impact on balance when paid
   const incPending = state.transactions.filter(t=>t.type==='receita' && t.paid===false).reduce((a,t)=>a+t.value,0);
   const expPending = state.transactions.filter(t=>t.type==='despesa' && t.paid===false).reduce((a,t)=>a+t.value,0);
-  return incPending - expPending;
+  return Math.round((incPending - expPending) * 100) / 100;
 }
 
 function getMonthForecast(m, y) {
   // Total expected at end of month = paid + pending
   const txs = getTrMonthTransactions(m, y);
-  const totalInc = txs.filter(t=>t.type==='receita').reduce((a,t)=>a+t.value,0);
-  const totalExp = txs.filter(t=>t.type==='despesa').reduce((a,t)=>a+t.value,0);
+  const totalInc = Math.round(txs.filter(t=>t.type==='receita').reduce((a,t)=>a+t.value,0) * 100) / 100;
+  const totalExp = Math.round(txs.filter(t=>t.type==='despesa').reduce((a,t)=>a+t.value,0) * 100) / 100;
   return { totalInc, totalExp };
 }
 function getMonthFreeBalance() {
@@ -1654,7 +1654,7 @@ function getMonthFreeBalance() {
   const txs = getTrMonthTransactions(m, y);
   const pendingInc = txs.filter(t=>t.type==='receita'&&t.paid!==true).reduce((a,t)=>a+t.value,0);
   const pendingExp = txs.filter(t=>t.type==='despesa'&&t.paid!==true).reduce((a,t)=>a+t.value,0);
-  return currentBal + pendingInc - pendingExp;
+  return Math.round((currentBal + pendingInc - pendingExp) * 100) / 100;
 }
 function getSpendingRates() {
   const now = new Date();
@@ -1664,8 +1664,8 @@ function getSpendingRates() {
   const freeBalance = getMonthFreeBalance();
   return {
     freeBalance,
-    perDay:  freeBalance > 0 ? freeBalance / daysLeft  : 0,
-    perWeek: freeBalance > 0 ? freeBalance / weeksLeft : 0,
+    perDay:  freeBalance > 0 ? Math.round((freeBalance / daysLeft) * 100) / 100 : 0,
+    perWeek: freeBalance > 0 ? Math.round((freeBalance / weeksLeft) * 100) / 100 : 0,
     daysLeft,
   };
 }
@@ -1679,9 +1679,9 @@ function getBillStatus(bill) {
 }
 
 function getCardSpending(cardId) {
-  return state.transactions
+  return Math.round(state.transactions
     .filter(t => t.cardId === cardId && t.type === 'despesa')
-    .reduce((a,t)=>a+t.value,0);
+    .reduce((a,t)=>a+t.value,0) * 100) / 100;
 }
 
 // ============================================================
@@ -1848,7 +1848,7 @@ function saveTransaction(e) {
   const type = document.querySelector('input[name="trans-type"]:checked').value;
   const date = document.getElementById('trans-date').value;
   const desc = document.getElementById('trans-desc').value.trim();
-  const value = parseFloat(document.getElementById('trans-value').value);
+  const value = Math.round(parseFloat(document.getElementById('trans-value').value) * 100) / 100;
   const cat = document.getElementById('trans-cat').value;
   const obs = document.getElementById('trans-obs').value.trim();
   const cardId = document.getElementById('trans-card').value || null;
@@ -1923,7 +1923,7 @@ function saveBill(e) {
   state.bills.push({
     id: Date.now(),
     desc: document.getElementById('bill-desc').value.trim(),
-    value: parseFloat(document.getElementById('bill-value').value),
+    value: Math.round(parseFloat(document.getElementById('bill-value').value) * 100) / 100,
     due: document.getElementById('bill-due').value,
     cat: document.getElementById('bill-cat').value,
     recurrence: document.getElementById('bill-recurrence').value,
@@ -1943,7 +1943,7 @@ function saveCard(e) {
     name: document.getElementById('card-name').value.trim(),
     brand: document.getElementById('card-brand').value,
     digits: document.getElementById('card-digits').value,
-    limit: parseFloat(document.getElementById('card-limit').value),
+    limit: Math.round(parseFloat(document.getElementById('card-limit').value) * 100) / 100,
     close: parseInt(document.getElementById('card-close').value),
     dueDay: parseInt(document.getElementById('card-due-day').value),
     color: colors[state.cards.length % colors.length],
@@ -1961,7 +1961,7 @@ function saveCard(e) {
 function saveBudget(e) {
   e.preventDefault();
   const bcat = document.getElementById('budget-cat').value;
-  const blimit = parseFloat(document.getElementById('budget-limit').value);
+  const blimit = Math.round(parseFloat(document.getElementById('budget-limit').value) * 100) / 100;
   state.budgets[bcat] = blimit;
   save();
   closeModal('add-budget');
@@ -1978,8 +1978,8 @@ function saveGoal(e) {
     id: Date.now(),
     name: document.getElementById('goal-name').value.trim(),
     icon: document.getElementById('goal-icon').value,
-    target: parseFloat(document.getElementById('goal-target').value),
-    saved: parseFloat(document.getElementById('goal-saved').value)||0,
+    target: Math.round(parseFloat(document.getElementById('goal-target').value) * 100) / 100,
+    saved: Math.round((parseFloat(document.getElementById('goal-saved').value)||0) * 100) / 100,
     date: document.getElementById('goal-date').value,
   };
   state.goals.push(newGoal);
@@ -2079,10 +2079,10 @@ function saveGoalSaving(e) {
   const id = window._goalSavingId;
   const g = state.goals.find(g=>g.id===id);
   if(!g) return;
-  const amt = parseFloat(document.getElementById('gs-amount').value);
+  const amt = Math.round(parseFloat(document.getElementById('gs-amount').value) * 100) / 100;
   if(isNaN(amt)||amt<=0) return;
   const deduct = document.getElementById('gs-deduct').checked;
-  g.saved = Math.min(g.target, g.saved + amt);
+  g.saved = Math.round(Math.min(g.target, g.saved + amt) * 100) / 100;
   let newTx = null;
   if(deduct) {
     newTx = {
@@ -2451,11 +2451,11 @@ function renderTransactions() {
   const aPagarT  = monthTxs.filter(t=>t.paid===false && t.type==='despesa' && getDaysLeft(t.date)>=0);
   const aRecebT  = monthTxs.filter(t=>t.paid===false && t.type==='receita' && getDaysLeft(t.date)>=0);
   const overdueT = monthTxs.filter(t=>t.paid===false && getDaysLeft(t.date)<0);
-  const totalInc   = paidT.filter(t=>t.type==='receita').reduce((a,t)=>a+t.value,0);
-  const totalExp   = paidT.filter(t=>t.type==='despesa').reduce((a,t)=>a+t.value,0);
-  const aPagarAmt  = aPagarT.reduce((a,t)=>a+t.value,0);
-  const aRecebAmt  = aRecebT.reduce((a,t)=>a+t.value,0);
-  const overdueAmt = overdueT.reduce((a,t)=>a+t.value,0);
+  const totalInc   = Math.round(paidT.filter(t=>t.type==='receita').reduce((a,t)=>a+t.value,0) * 100) / 100;
+  const totalExp   = Math.round(paidT.filter(t=>t.type==='despesa').reduce((a,t)=>a+t.value,0) * 100) / 100;
+  const aPagarAmt  = Math.round(aPagarT.reduce((a,t)=>a+t.value,0) * 100) / 100;
+  const aRecebAmt  = Math.round(aRecebT.reduce((a,t)=>a+t.value,0) * 100) / 100;
+  const overdueAmt = Math.round(overdueT.reduce((a,t)=>a+t.value,0) * 100) / 100;
   const monthLabel = activeMonth ? (()=>{const[y,mo]=activeMonth.split('-');return MONTHS_SHORT[parseInt(mo)-1]+'/'+y;})() : 'Todos';
 
   const metricsEl = document.getElementById('trans-metrics');
@@ -2547,7 +2547,7 @@ function renderCards() {
   const cardsList = document.getElementById('cards-list');
   cardsList.innerHTML = state.cards.length ? state.cards.map(card=>{
     const spent = getCardSpending(card.id);
-    const available = Math.max(0, card.limit - spent);
+    const available = Math.round(Math.max(0, card.limit - spent) * 100) / 100;
     const pct = Math.min(100, Math.round(spent/card.limit*100));
     const lastFour = card.digits || '****';
     return `<div>
@@ -2625,7 +2625,7 @@ function renderBudget() {
     return;
   }
   const cards = budgetEntries.map(function([cat,limit]){
-    const spent = catExp[cat]||0;
+    const spent = Math.round((catExp[cat]||0) * 100) / 100;
     const pct = Math.min(100, Math.round(spent/limit*100));
     const over = spent>limit;
     const cat2 = getCat(cat);
@@ -2640,7 +2640,7 @@ function renderBudget() {
       +'<div><div style="font-size:14px;font-weight:500">'+cat2.name+'</div>'
       +'<div style="font-size:12px;color:var(--text3)">'+MONTHS_SHORT[m]+' '+y+'</div></div>'
       +'</div>'
-      +'<button class="del-btn" onclick="deleteBudget(\"'+cat+'\")">🗑</button>'
+      +'<button class="del-btn" onclick="deleteBudget("'+cat+'")">🗑</button>'
       +'</div>'
       +'<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px">'
       +'<span style="color:var(--text2)">Gasto: <strong style="color:'+(over?'var(--red)':'var(--text)')+'">'+fmt(spent)+'</strong></span>'
@@ -2671,7 +2671,7 @@ function renderGoals() {
   }
   el.innerHTML = state.goals.map(g=>{
     const pct = Math.min(100, Math.round(g.saved/g.target*100));
-    const remaining = g.target - g.saved;
+    const remaining = Math.round((g.target - g.saved) * 100) / 100;
     let daysLeft = '', monthlyNeeded = '';
     if(g.date) {
       const dl = getDaysLeft(g.date);
@@ -2754,7 +2754,7 @@ function renderReports() {
   const balData = months6.map(({m,y})=>{
     const {balance} = getMonthTotals(m,y);
     cumBal += balance;
-    return parseFloat(cumBal.toFixed(2));
+    return Math.round(cumBal * 100) / 100;
   });
   if(chartBalRep) chartBalRep.destroy();
   chartBalRep = new Chart(document.getElementById('chart-balance'),{
@@ -2806,12 +2806,12 @@ function renderForecast() {
       }
     });
     // NOTE: state.bills is legacy and no longer used for forecasting
-    return {inc: parseFloat(inc.toFixed(2)), exp: parseFloat(exp.toFixed(2))};
+    return {inc: Math.round(inc * 100) / 100, exp: Math.round(exp * 100) / 100};
   }
 
   const projections = months.map(({m,y})=>({...projectMonth(m,y),label:MONTHS_SHORT[m]+' '+y}));
   let runBal = getCurrentBalance(); // always uses live balance
-  const balProj = projections.map(p=>{runBal+=p.inc-p.exp; return parseFloat(runBal.toFixed(2));});
+  const balProj = projections.map(p=>{runBal+=p.inc-p.exp; return Math.round(runBal * 100) / 100;});
 
   if(chartForecast) chartForecast.destroy();
   chartForecast = new Chart(document.getElementById('chart-forecast'),{
@@ -2835,7 +2835,7 @@ function renderForecast() {
   let runBal2 = getCurrentBalance(); // live
   document.getElementById('forecast-detail').innerHTML = projections.map((p,i)=>{
     runBal2 += p.inc - p.exp;
-    const delta = p.inc - p.exp;
+    const delta = Math.round((p.inc - p.exp) * 100) / 100;
     return `<div class="forecast-month">
       <div class="forecast-month-name">${p.label}</div>
       <div class="forecast-bars">
@@ -2881,16 +2881,16 @@ function exportExcel(mode) {
   ]);
 
   // Summary block
-  const paidInc = txs.filter(t=>t.type==='receita'&&t.paid===true).reduce((a,t)=>a+t.value,0);
-  const paidExp = txs.filter(t=>t.type==='despesa'&&t.paid===true).reduce((a,t)=>a+t.value,0);
-  const pendAmt = txs.filter(t=>t.paid===false).reduce((a,t)=>a+t.value,0);
+  const paidInc = Math.round(txs.filter(t=>t.type==='receita'&&t.paid===true).reduce((a,t)=>a+t.value,0) * 100) / 100;
+  const paidExp = Math.round(txs.filter(t=>t.type==='despesa'&&t.paid===true).reduce((a,t)=>a+t.value,0) * 100) / 100;
+  const pendAmt = Math.round(txs.filter(t=>t.paid===false).reduce((a,t)=>a+t.value,0) * 100) / 100;
 
   const summaryRows = [
     [],
     ['=== RESUMO ==='],
     ['Total Receitas Pagas','',paidInc.toFixed(2).replace('.',',')],
     ['Total Despesas Pagas','',paidExp.toFixed(2).replace('.',',')],
-    ['Saldo do Período','',(paidInc-paidExp).toFixed(2).replace('.',',')],
+    ['Saldo do Período','',(Math.round((paidInc-paidExp)*100)/100).toFixed(2).replace('.',',')],
     ['Total Pendente','',pendAmt.toFixed(2).replace('.',',')],
   ];
 
@@ -2989,7 +2989,7 @@ function saveEditTransaction(e) {
     type:  document.querySelector('input[name="edit-trans-type"]:checked').value,
     date:  document.getElementById('edit-trans-date').value,
     desc:  document.getElementById('edit-trans-desc').value.trim(),
-    value: parseFloat(document.getElementById('edit-trans-value').value),
+    value: Math.round(parseFloat(document.getElementById('edit-trans-value').value) * 100) / 100,
     cat:   document.getElementById('edit-trans-cat').value,
     obs:   document.getElementById('edit-trans-obs').value.trim(),
     paid:  document.getElementById('edit-trans-paid').checked,
