@@ -1866,7 +1866,7 @@ function saveTransaction(e) {
       state.transactions.push({
         ...base,
         id: baseId + i + 1,
-        date: d.toISOString().slice(0,10),
+        date: formatDateLocal(d),
         parcelaAtual: i+1,
         parcelas: n,
         parcelaDesc: (i+1)+'/'+n,
@@ -1881,7 +1881,7 @@ function saveTransaction(e) {
       state.transactions.push({
         ...base,
         id: baseId + i + 1,
-        date: d.toISOString().slice(0,10),
+        date: formatDateLocal(d),
         paid: i===0 ? paid : false, // só o mês atual segue o toggle
       });
     }
@@ -1895,7 +1895,7 @@ function saveTransaction(e) {
       state.transactions.push({
         ...base,
         id: baseId + i + 1,
-        date: d.toISOString().slice(0,10),
+        date: formatDateLocal(d),
         paid: i===0 ? paid : false,
       });
       d = new Date(d);
@@ -3015,7 +3015,7 @@ function applyRecEdit(scope) {
     const refDate = t.date;
     const refRec  = t.recurrence;
     state.transactions
-      .filter(tx => tx.desc===refDesc && tx.recurrence===refRec && tx.date>=refDate)
+      .filter(tx => tx.seriesId === t.seriesId && tx.date>=refDate)
       .forEach(tx => {
         tx.type  = _editData.type;
         tx.desc  = _editData.desc;
